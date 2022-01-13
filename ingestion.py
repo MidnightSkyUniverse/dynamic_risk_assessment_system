@@ -1,3 +1,9 @@
+"""
+    Author: Ali Binkowska
+    Date: Jan 2022
+
+    Data ingestion - the script looks for 'csv' data and combine them into one pandas DF
+"""
 import pandas as pd
 import numpy as np
 import os
