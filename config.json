@@ -5,7 +5,7 @@
 	"test_file": "testdata.csv",
 	"output_model_path": "practicemodels", 
 	"output_model": "trainedmodel.pkl",
-	"scoring": "scoring.txt",
+	"scoring": "latestscore.txt",
 	"prod_deployment_path": "production_deployment", 
 	"output_file": "finaldata.csv",
 	"ingested_files": "ingestedfiles.txt",
