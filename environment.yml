@@ -1,0 +1,13 @@
+name: census_fastAPI
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas
+  - pip
+  - pytest
+  - flake8
+  - joblib
+  - scikit-learn
+  - pre-commit
+
