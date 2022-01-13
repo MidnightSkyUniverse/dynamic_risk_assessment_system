@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import json
 import logging
+from functions import process_data
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
@@ -17,23 +18,10 @@ with open('config.json','r') as f:
     config = json.load(f) 
 
 dataset_csv_path = os.path.join(config['output_folder_path']) 
+output_file = config['output_file']
+# model
 model_path = os.path.join(config['output_model_path']) 
 output_model =  config["output_model"]
-output_file = config['output_file']
-label = config['label']
-X_cols = config['X_cols']
-
-
-def process_data():
-    """
-    Read cvs file and split the dataset into X and y
-    """
-    trainingdata = pd.read_csv(dataset_csv_path + '/' + output_file)
-    X=trainingdata.loc[:,X_cols].values.reshape(-1, len(X_cols))
-    y=trainingdata[label].values.reshape(-1, 1).ravel()
-    
-    return (X,y) 
-
 
 def train_model():
     """
@@ -52,7 +40,7 @@ def train_model():
     
     # Fit the logistic regression to your data
     logging.info("Transform the data from pandas into X and y")
-    X, y = process_data() 
+    X, y = process_data(dataset_csv_path + '/' + output_file) 
     print (X)
     print(y)
 
