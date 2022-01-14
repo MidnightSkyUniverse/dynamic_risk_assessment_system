@@ -43,7 +43,7 @@ def score_model():
     logging.info(f"Load test data from {test_file} and splitting into X and Y")
     X, y = process_data(test_data_path + '/' + test_file)    
 
-    logging.info("Model scoring with F1")
+    logging.info("Model predicting and scoring with F1")
     predicted = model.predict(X)
 
     f1score=metrics.f1_score(predicted,y)

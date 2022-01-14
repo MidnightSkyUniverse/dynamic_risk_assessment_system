@@ -41,8 +41,8 @@ def train_model():
     # Fit the logistic regression to your data
     logging.info("Transform the data from pandas into X and y")
     X, y = process_data(dataset_csv_path + '/' + output_file) 
-    print (X)
-    print(y)
+    #print (X)
+    #print(y)
 
     # Train the model 
     logging.info("Train the model on the data")

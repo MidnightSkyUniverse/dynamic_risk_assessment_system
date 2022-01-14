@@ -10,5 +10,5 @@
 	"output_file": "finaldata.csv",
 	"ingested_files": "ingestedfiles.txt",
 	"label": "exited",
-	"X_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"]
+	"numeric_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"]
 }

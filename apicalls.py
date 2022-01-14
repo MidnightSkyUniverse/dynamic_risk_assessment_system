@@ -4,7 +4,7 @@ import requests
 URL = "http://127.0.0.1/"
 
 
-
+"""
 #Call each API endpoint and store the responses
 response1 = #put an API call here
 response2 = #put an API call here
@@ -17,4 +17,4 @@ responses = #combine reponses here
 #write the responses to your workspace
 
 
-
+"""
