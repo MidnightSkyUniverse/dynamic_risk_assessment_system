@@ -1,10 +1,11 @@
-from flask import Flask, session, jsonify, request
-import pandas as pd
-import numpy as np
+"""
+    Author: Ali Binkowska
+    Date: Jan 2022
+
+    
+"""
 import pickle
 import os
-from sklearn import metrics
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import json
 import logging
@@ -13,7 +14,7 @@ from functions import process_data
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
 
-###################Load config.json and get path variables
+# Define paths 
 with open('config.json','r') as f:
     config = json.load(f) 
 
@@ -22,6 +23,7 @@ output_file = config['output_file']
 # model
 model_path = os.path.join(config['output_model_path']) 
 output_model =  config["output_model"]
+
 
 def train_model():
     """

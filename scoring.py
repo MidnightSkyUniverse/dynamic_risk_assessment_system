@@ -4,14 +4,9 @@
 
     Scoring of the model
 """
-from flask import Flask, session, jsonify, request
-import pandas as pd
-import numpy as np
 import pickle
 import os
 from sklearn import metrics
-#from sklearn.model_selection import train_test_split
-#from sklearn.linear_model import LogisticRegression
 import json
 import logging
 from functions import process_data
@@ -53,6 +48,5 @@ def score_model():
         entry = {'metric': 'f1', 'score': f1score}
         f.write(str(entry)+'\n')
 
-    
+    return f1score    
 
-score_model()

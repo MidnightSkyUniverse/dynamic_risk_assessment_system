@@ -5,10 +5,8 @@
     Data ingestion - the script looks for 'csv' data and combine them into one pandas DF
 """
 import pandas as pd
-import numpy as np
 import os
 import json
-from datetime import datetime
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")

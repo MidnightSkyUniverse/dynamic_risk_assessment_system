@@ -1,6 +1,4 @@
 import pickle
-from sklearn.model_selection import train_test_split
-import pandas as pd
 import numpy as np
 from sklearn import metrics
 import matplotlib.pyplot as plt
@@ -30,10 +28,7 @@ def score_model():
     cf_matrix = metrics.confusion_matrix(y, predictions)
     print(cf_matrix)
 
-    #sns.heatmap(cf_matrix, annot=True)
-    #sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, 
-    #        fmt='.2%', cmap='Blues')
-
+    # This code is taken form : https://medium.com/@dtuk81/confusion-matrix-visualization-fc31e3f30fea
     group_names = ["True Neg","False Pos","False Neg","True Pos"]
     
     group_counts = ["{0:0.0f}".format(value) for value in cf_matrix.flatten()]
@@ -46,7 +41,7 @@ def score_model():
 
     labels = np.asarray(labels).reshape(2,2)
 
-    sns.heatmap(cf_matrix, annot=labels, fmt="", cmap='Blues')
+    sns.heatmap(cf_matrix, annot=labels, fmt="", cmap='Reds')
     plt.savefig(output_model_path+ '/' + 'confusionmatrix.png')
 
     

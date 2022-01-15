@@ -4,7 +4,6 @@
 
 """
 import pandas as pd
-import numpy as np
 import timeit
 import os
 import json
@@ -32,7 +31,7 @@ numeric_cols = config['numeric_cols']
 
 
 ##################Function to get model predictions
-def model_predictions():
+def model_predictions(file_name):
     """
         Output: predictions
     """ 
@@ -41,7 +40,7 @@ def model_predictions():
         model = pickle.load(f)
 
     logging.info(f"Load test data from {test_file} and splitting into X and Y")
-    X, y = process_data(test_data_path + '/' + test_file)
+    X, y = process_data(file_name)
 
     logging.info("Model predicting")
     predicted = model.predict(X)
