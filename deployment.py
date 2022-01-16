@@ -33,6 +33,3 @@ def store_model_into_pickle():#model):
     logging.info(f"Copy list of ingested files to  folder {prod_deployment_path}") 
     os.system(f"cp {ingested_file} {prod_deployment_path}")
   
-
-  
-store_model_into_pickle()
