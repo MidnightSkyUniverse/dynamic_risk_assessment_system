@@ -33,8 +33,8 @@ def predict():
 #
     request_data = request.get_json()
     file_name = request_data['file_name']
-#    predictions = model_predictions(file_name)
-    return {"data": file_name}#str(predictions)
+    predictions = diagnostics.model_predictions(file_name)
+    return  {"data": predictions.tolist()}
 
 
 #######################Scoring Endpoint
