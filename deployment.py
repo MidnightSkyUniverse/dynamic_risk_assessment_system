@@ -22,14 +22,13 @@ ingested_file = config['ingested_files']
 
 ####################function for deployment
 def store_model_into_pickle():#model):
-    #copy the latest pickle file, the latestscore.txt value, and the ingestfiles.txt file into the deployment directory
        
-    logging.info(f"Copy model to production folder {prod_deployment_path}") 
+#    logging.info(f"Copy model to production folder {prod_deployment_path}") 
     os.system(f"cp {output_model_path}/{model_path} {prod_deployment_path}")
         
-    logging.info(f"Copy model scoring to  folder {prod_deployment_path}") 
+#    logging.info(f"Copy model scoring to  folder {prod_deployment_path}") 
     os.system(f"cp {output_model_path}/{scoring} {prod_deployment_path}")
     
-    logging.info(f"Copy list of ingested files to  folder {prod_deployment_path}") 
+#    logging.info(f"Copy list of ingested files to  folder {prod_deployment_path}") 
     os.system(f"cp {ingested_file} {prod_deployment_path}")
   

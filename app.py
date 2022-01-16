@@ -40,7 +40,8 @@ def predict():
 #######################Scoring Endpoint
 @app.route("/scoring", methods=['GET','OPTIONS'])
 def stats1():        
-    response = score_model()
+    file_name = request.get.args('file_name')
+    response = score_model(file_name)
     return {"data": response}
 
 #######################Summary Statistics Endpoint

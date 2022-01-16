@@ -35,14 +35,14 @@ def model_predictions(file_name):
     """
         Output: predictions
     """ 
-    logging.info(f"Load model from {output_model}")
+#    logging.info(f"Load model from {output_model}")
     with open(output_model_path + '/' + output_model, 'rb') as f:
         model = pickle.load(f)
 
-    logging.info(f"Load test data from {test_file} and splitting into X and Y")
+#    logging.info(f"Load test data from {test_file} and splitting into X and Y")
     X, y = process_data(file_name)
 
-    logging.info("Model predicting")
+#    logging.info("Model predicting")
     predicted = model.predict(X)
 
     return predicted 

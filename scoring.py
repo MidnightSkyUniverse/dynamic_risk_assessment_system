@@ -28,7 +28,7 @@ scoring = config['scoring']
 
 
 #################Function for model scoring
-def score_model():
+def score_model(file_path):
     #this function should take a trained model, load test data, and calculate an F1 score for the model relative to the test data
     #it should write the result to the latestscore.txt file
 #    logging.info(f"Load model from {output_model}")
@@ -36,7 +36,7 @@ def score_model():
         model = pickle.load(f)
 
 #    logging.info(f"Load test data from {test_file} and splitting into X and Y")
-    X, y = process_data(test_data_path + '/' + test_file)    
+    X, y = process_data(file_path)    
 
 #    logging.info("Model predicting and scoring with F1")
     predicted = model.predict(X)
