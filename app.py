@@ -3,9 +3,9 @@
     Date: Jan 2022
 """
 from flask import Flask, session, jsonify, request
-import pandas as pd
-import numpy as np
-import pickle
+#import pandas as pd
+#import numpy as np
+#import pickle
 import diagnostics
 import json
 import os
