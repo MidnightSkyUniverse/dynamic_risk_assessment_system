@@ -110,14 +110,14 @@ deployment.store_model_into_pickle()
 # Run reporting which will create and save confusion matrix
 # Execute apicalls.py for diagnostics
 # ********************************************************** 
+reporting.score_model(test_data_path + '/' + test_file)
 try:
-    reporting.score_model()
     logging.info("Confusion matrix has been created")
 except:
     logging.error("Issue with confusion matrix creation (reporting.py script)")
 
+results = functions.execute_command(['python','apicalls.py'])
 try:
-    results = functions.execute_comand['python','apicalls.py']
     logging.info(f"API calls executed successfully {results}")
 except:
     logging.error("Issue with apicalls.py")

@@ -19,14 +19,13 @@ test_file = config['test_file']
 output_model_path = config['output_model_path']
 
 ##############Function for reporting
-def score_model():
+def score_model(file_name):
     """
     Confusion matrix
     """
-    predictions = model_predictions()
-    X, y = process_data(test_data_path + '/' + test_file)
+    predictions = model_predictions(file_name)
+    X, y = process_data(file_name)
     cf_matrix = metrics.confusion_matrix(y, predictions)
-    print(cf_matrix)
 
     # This code is taken form : https://medium.com/@dtuk81/confusion-matrix-visualization-fc31e3f30fea
     group_names = ["True Neg","False Pos","False Neg","True Pos"]
