@@ -1,0 +1,1 @@
+*/10 * * * * python /home/admin/risk_access/fullprocess.py >/dev/null 2>&1
