@@ -23,6 +23,7 @@ test_file = config['test_file']
 # model
 output_model_path = os.path.join(config['output_model_path'])
 output_model = config['output_model']
+prod_deployment_path = config['prod_deployment_path']
 # scoring
 scoring = config['scoring']
 
@@ -32,7 +33,7 @@ def score_model(file_path):
     #this function should take a trained model, load test data, and calculate an F1 score for the model relative to the test data
     #it should write the result to the latestscore.txt file
 #    logging.info(f"Load model from {output_model}")
-    with open(output_model_path + '/' + output_model, 'rb') as f:
+    with open(prod_deployment_path + output_model, 'rb') as f:
         model = pickle.load(f)
 
 #    logging.info(f"Load test data from {test_file} and splitting into X and Y")
@@ -44,7 +45,7 @@ def score_model(file_path):
     f1score=metrics.f1_score(predicted,y)
 #    logging.info(f"F1 score: {f1score}")
 
-    with open(output_model_path + '/' + scoring, 'w') as f:
+    with open(output_model_path + scoring, 'w') as f:
         entry = {'metric': 'f1', 'score': f1score}
         f.write(str(entry)+'\n')
 

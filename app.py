@@ -69,7 +69,7 @@ def stats3():
 
 @app.route("/apireturns",methods=['GET'])
 def name():
-    return output_model_path + '/' + apireturns
+    return output_model_path + apireturns
 
 if __name__ == "__main__":    
     app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)

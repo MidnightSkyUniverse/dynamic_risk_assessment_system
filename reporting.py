@@ -41,7 +41,7 @@ def score_model(file_name):
     labels = np.asarray(labels).reshape(2,2)
 
     sns.heatmap(cf_matrix, annot=labels, fmt="", cmap='Reds')
-    plt.savefig(output_model_path+ '/' + 'confusionmatrix.png')
+    plt.savefig(output_model_path + 'confusionmatrix.png')
 
     
 

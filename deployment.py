@@ -30,5 +30,5 @@ def store_model_into_pickle():#model):
     os.system(f"cp {output_model_path}/{scoring} {prod_deployment_path}")
     
 #    logging.info(f"Copy list of ingested files to  folder {prod_deployment_path}") 
-    os.system(f"cp {ingested_file} {prod_deployment_path}")
+    os.system(f"mv {ingested_file} {prod_deployment_path}")
   

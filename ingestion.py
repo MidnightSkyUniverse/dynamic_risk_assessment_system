@@ -30,13 +30,13 @@ def merge_multiple_dataframe():
     datasets = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
     combined = pd.DataFrame()
     for dataset in datasets:
-        data = pd.read_csv(input_folder_path + '/' + dataset) 
+        data = pd.read_csv(input_folder_path + dataset) 
         combined = combined.append(data)
         
     # Save combined 
 #    logging.info(f"Save combined pandas dataframe to {output_folder_path} folder")
     result = combined.drop_duplicates()
-    result.to_csv(output_folder_path + '/' + output_file, index=False)
+    result.to_csv(output_folder_path + output_file, index=False)
 
     # Save names of dataset files that were source of the data
 #    logging.info(f"Save names of csv-s to {ingested_files}")

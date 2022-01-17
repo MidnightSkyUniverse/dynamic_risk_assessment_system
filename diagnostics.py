@@ -24,7 +24,8 @@ output_file = config['output_file']
 test_data_path = os.path.join(config['test_data_path']) 
 test_file = config['test_file']
 # model
-output_model_path = os.path.join(config['output_model_path'])
+#output_model_path = os.path.join(config['output_model_path'])
+prod_deployment_path = config['prod_deployment_path']
 output_model = config['output_model']
 # numeric columns
 numeric_cols = config['numeric_cols']
@@ -36,7 +37,7 @@ def model_predictions(file_name):
         Output: predictions
     """ 
 #    logging.info(f"Load model from {output_model}")
-    with open(output_model_path + '/' + output_model, 'rb') as f:
+    with open(prod_deployment_path + output_model, 'rb') as f:
         model = pickle.load(f)
 
 #    logging.info(f"Load test data from {test_file} and splitting into X and Y")
@@ -53,7 +54,7 @@ def dataframe_summary():
     Statistics:  means, medians, and standard deviations
     """
     logging.info(f"Calculate the statistics for the dataset")
-    thedata = pd.read_csv(dataset_csv_path + '/' + output_file)
+    thedata = pd.read_csv(dataset_csv_path + output_file)
 
     mean = thedata.mean(axis=0)
     median = thedata.median(axis=0)
@@ -79,7 +80,7 @@ def missing_data():
     Statistics on NA data
     """
     logging.info(f"Calculate the statistics for the dataset")
-    thedata = pd.read_csv(dataset_csv_path + '/' + output_file)
+    thedata = pd.read_csv(dataset_csv_path + output_file)
 
     na = thedata.isna().sum()
     

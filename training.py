@@ -42,7 +42,7 @@ def train_model():
     
     # Fit the logistic regression to your data
 #    logging.info("Transform the data from pandas into X and y")
-    X, y = process_data(dataset_csv_path + '/' + output_file) 
+    X, y = process_data(dataset_csv_path + output_file) 
 
     # Train the model 
 #    logging.info("Train the model on the data")
@@ -50,6 +50,6 @@ def train_model():
     
     #write the trained model to your workspace in a file called trainedmodel.pkl
 #    logging.info(f"Save the model to file {output_model}")
-    pickle.dump(model, open(model_path + '/' +  output_model, 'wb'))    
+    pickle.dump(model, open(model_path + output_model, 'wb'))    
 
 

@@ -43,7 +43,7 @@ test_file = config['test_file']
 # Combine list of .csv files with a list of files that contributed to the dataset
 logging.info(f"Check for new data files in {input_folder_path}")
 try:
-    with open(ingested_files, 'rb') as f:
+    with open(prod_deployment_path + ingested_files, 'rb') as f:
         lines = f.readlines()
 except FileNotFoundError:
     logging.error(f"The file {ingested_files} cannot be found")
@@ -76,17 +76,16 @@ else:
 # ********************************************************** 
 
 logging.error("Use production model to do predictions on new dataset")
-predictions = diagnostics.model_predictions(output_folder_path + '/' + output_file)
-new_f1 = scoring.score_model(output_folder_path + '/' + output_file) 
+predictions = diagnostics.model_predictions(output_folder_path + output_file)
+new_f1 = scoring.score_model(output_folder_path + output_file) 
 logging.error(f"New F1 score is {new_f1}")
     
 # Read the last score 
-with open(prod_deployment_path + '/' + score, 'r') as f:
+with open(prod_deployment_path + score, 'r') as f:
     old_f1 = ast.literal_eval(f.read().strip())     
 logging.error(f"Previous F1 score is {old_f1['score']}")
 
-#if you found model drift, you should proceed. otherwise, do end the process here
-if new_f1 < float(old_f1['score']): # should be <=
+if new_f1 >= float(old_f1['score']): # should be <=
     logging.info("Model is not drifting, so we can conclude the progam")
     # Once there is no model drift, we can complete the script here
     exit()
@@ -99,8 +98,8 @@ if new_f1 < float(old_f1['score']): # should be <=
 logging.info("Training of the model on the new dataset")
 training.train_model()
 
-predictions = diagnostics.model_predictions(output_folder_path + '/' + output_file)
-new_f1 = scoring.score_model(test_data_path + '/' + test_file) 
+predictions = diagnostics.model_predictions(output_folder_path + output_file)
+new_f1 = scoring.score_model(test_data_path + test_file) 
 logging.error(f"New F1 score is {new_f1}")
  
 logging.info(f"Copy model, scores and list of ingested files to {prod_deployment_path}")
@@ -110,7 +109,7 @@ deployment.store_model_into_pickle()
 # Run reporting which will create and save confusion matrix
 # Execute apicalls.py for diagnostics
 # ********************************************************** 
-reporting.score_model(test_data_path + '/' + test_file)
+reporting.score_model(test_data_path + test_file)
 try:
     logging.info("Confusion matrix has been created")
 except:

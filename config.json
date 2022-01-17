@@ -1,15 +1,15 @@
 { 
-	"input_folder_path": "practicedata", 
-	"output_folder_path": "ingesteddata", 
-	"test_data_path": "testdata", 
+	"input_folder_path": "sourcedata/", 
+	"output_folder_path": "ingesteddata/", 
+	"test_data_path": "testdata/", 
 	"test_file": "testdata.csv",
-	"output_model_path": "practicemodels", 
+	"output_model_path": "models/", 
 	"output_model": "trainedmodel.pkl",
 	"scoring": "latestscore.txt",
-	"prod_deployment_path": "production_deployment", 
+	"prod_deployment_path": "production_deployment/", 
 	"output_file": "finaldata.csv",
 	"ingested_files": "ingestedfiles.txt",
-	"label": "exited",
 	"apireturns": "apireturns.txt",
+	"label": "exited",
 	"numeric_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"]
 }

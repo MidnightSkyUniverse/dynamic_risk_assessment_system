@@ -19,7 +19,7 @@ def process_data(file_path):
     """
     Read cvs file and split the dataset into X and y
     """
-    trainingdata = pd.read_csv(file_path) #pd.read_csv(dataset_csv_path + '/' + output_file)
+    trainingdata = pd.read_csv(file_path) 
     X=trainingdata.loc[:,numeric_cols].values.reshape(-1, len(numeric_cols))
     y=trainingdata[label].values.reshape(-1, 1).ravel()
     
