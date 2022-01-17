@@ -4,6 +4,13 @@
 
     The script 
 """
+import sys
+import os
+import logging
+import json
+import ast
+sys.path.append(os.getcwd())
+
 import ingestion
 import training
 import scoring
@@ -11,16 +18,9 @@ import deployment
 import diagnostics
 import reporting
 import functions
-import logging
-import json
-import os
-import ast
-import sys
-
 logging.basicConfig(filename='fullprocess.log', level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
 
-sys.path.append(os.getcwd())
 
 ############# Load config.json and get input and output paths
 with open('config.json','r') as f:

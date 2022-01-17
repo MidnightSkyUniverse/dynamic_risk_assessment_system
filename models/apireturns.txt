@@ -16,7 +16,7 @@ Summary stats for each feature
 [0.0, 0.0, 0.0, 0.0, 0.0]
 ------------------------------------------------
 Execution times
-[1.2272394122555852, 0.5471306089311838]
+[1.2078296039253473, 0.5326362419873476]
 ------------------------------------------------
 List of outdated packages: package name - installed version - newest available version
 click - 7.1.2 - 8.0.3
