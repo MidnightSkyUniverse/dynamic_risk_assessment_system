@@ -15,10 +15,12 @@ import logging
 import json
 import os
 import ast
+import sys
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+logging.basicConfig(filename='fullprocess.log', level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
 
+sys.path.append(os.getcwd())
 
 ############# Load config.json and get input and output paths
 with open('config.json','r') as f:

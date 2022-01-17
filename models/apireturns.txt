@@ -8,15 +8,15 @@ F1 score for the model
 0.3333333333333333
 ------------------------------------------------
 Summary stats for each feature
-{'feature': 'lastmonth_activity', 'mean': 5625.923076923077, 'median': 425.0, 'std': 19444.774621317832}
-{'feature': 'lastyear_activity', 'mean': 763.5384615384615, 'median': 97.5, 'std': 2016.6093569309696}
-{'feature': 'number_of_employees', 'mean': 457.46153846153845, 'median': 99.0, 'std': 800.604832899189}
+{'feature': 'lastmonth_activity', 'mean': 2895.7884615384614, 'median': 99.0, 'std': 13891.799947375555}
+{'feature': 'lastyear_activity', 'mean': 1133.2307692307693, 'median': 422.5, 'std': 2118.8560325982103}
+{'feature': 'number_of_employees', 'mean': 242.17307692307693, 'median': 22.5, 'std': 601.6143876419495}
 ------------------------------------------------
 % of missing data per column
 [0.0, 0.0, 0.0, 0.0, 0.0]
 ------------------------------------------------
 Execution times
-[1.3391990708187222, 0.5520302909426391]
+[1.2272394122555852, 0.5471306089311838]
 ------------------------------------------------
 List of outdated packages: package name - installed version - newest available version
 click - 7.1.2 - 8.0.3
