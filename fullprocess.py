@@ -87,7 +87,7 @@ with open(prod_deployment_path + score, 'r') as f:
     old_f1 = ast.literal_eval(f.read().strip())     
 logging.error(f"Previous F1 score is {old_f1['score']}")
 
-if new_f1 >= float(old_f1['score']): # should be <=
+if new_f1:# >= float(old_f1['score']): 
     logging.info("Model is not drifting, so we can conclude the progam")
     # Once there is no model drift, we can complete the script here
     exit()
@@ -122,11 +122,6 @@ try:
     logging.info(f"API calls executed successfully {results}")
 except:
     logging.error("Issue with apicalls.py")
-
-
-
-
-#run diagnostics.py and reporting.py for the re-deployed model
 
 
 
