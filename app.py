@@ -24,7 +24,7 @@ test_data_path = config['test_data_path']
 output_model_path = config['output_model_path']
 output_model = config['output_model']
 prediction_model = None
-
+apireturns = config['apireturns']
 
 #######################Prediction Endpoint
 @app.route("/prediction", methods=['POST','OPTIONS'])
@@ -38,9 +38,10 @@ def predict():
 
 
 #######################Scoring Endpoint
-@app.route("/scoring", methods=['GET','OPTIONS'])
+@app.route("/scoring", methods=['POST','OPTIONS'])
 def stats1():        
-    file_name = request.get.args('file_name')
+    request_data = request.get_json()
+    file_name = request_data['file_name']
     response = score_model(file_name)
     return {"data": response}
 
@@ -65,6 +66,10 @@ def stats3():
     }
 
     return data
+
+@app.route("/apireturns",methods=['GET'])
+def name():
+    return output_model_path + '/' + apireturns
 
 if __name__ == "__main__":    
     app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)

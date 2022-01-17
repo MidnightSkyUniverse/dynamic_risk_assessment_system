@@ -8,14 +8,15 @@ header = {
         }
 data = {'file_name':'testdata/testdata.csv'}
 r1 = requests.post(URL+'/prediction', headers=header, data = json.dumps(data)).json()
+r2 = requests.post(URL+'/scoring',    headers=header, data = json.dumps(data)).json()
 
-r2 = requests.get(URL+'/scoring').json()
 r3 = requests.get(URL+'/summarystats').json()
 r4 = requests.get(URL+'/diagnostics').json()
 
+r5 = requests.get(URL+'/apireturns').content.decode('utf8').strip()
 
 #combine all API responses
-with open("apireturns.txt","w") as f:
+with open(r5,"w") as f:
     f.write("API Responses\n")
     f.write('------------------------------------------------\n')
     f.write('------------------------------------------------\n')

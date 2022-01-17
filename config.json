@@ -10,5 +10,6 @@
 	"output_file": "finaldata.csv",
 	"ingested_files": "ingestedfiles.txt",
 	"label": "exited",
+	"apireturns": "apireturns.txt",
 	"numeric_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"]
 }
