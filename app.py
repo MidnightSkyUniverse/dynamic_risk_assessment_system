@@ -3,18 +3,15 @@
     Date: Jan 2022
 """
 from flask import Flask, session, jsonify, request
-#import pandas as pd
-#import numpy as np
-#import pickle
-import diagnostics
+from flask_sqlalchemy import SQLAlchemy
 import json
 import os
+import diagnostics
 from scoring import score_model
-
 
 ######################Set up variables for use in our script
 app = Flask(__name__)
-app.secret_key = '1652d576-484a-49fd-913a-6879acfa6ba4'
+#app.secret_key = config['SECRET_KEY']
 
 with open('config.json','r') as f:
     config = json.load(f) 
