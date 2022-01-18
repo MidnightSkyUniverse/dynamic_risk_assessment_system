@@ -8,6 +8,7 @@ Udacity nanodegree program
 Technologies used in the project
 * [GitHub](github.com)
 * [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+* crontab
 
 
 ### Getting Started
@@ -41,7 +42,10 @@ This is the logic behind the script:
 7. Run deployment.py to save new model. scores and lsit of ingested files to production folder
 
 
+#### Continuous diagnostics
 
+There is a script called `execute_fullprocess.sh` which can be configured as cron job
+and execute fullprocess.py in regular intervals.
 
 #### Model documentation
 
