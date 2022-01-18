@@ -46,5 +46,5 @@ def merge_multiple_dataframe():
 
 
 
-if __name__ == '__main__':
-    merge_multiple_dataframe()
+#if __name__ == '__main__':
+#    merge_multiple_dataframe()

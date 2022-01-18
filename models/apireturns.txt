@@ -16,29 +16,9 @@ Summary stats for each feature
 [0.0, 0.0, 0.0, 0.0, 0.0]
 ------------------------------------------------
 Execution times
-[1.1922992710024118, 0.5441526053473353]
+[1.2071826728060842, 0.5148527519777417]
 ------------------------------------------------
 List of outdated packages: package name - installed version - newest available version
-click - 7.1.2 - 8.0.3
-cycler - 0.10.0 - 0.11.0
-Flask - 1.1.2 - 2.0.2
 gunicorn - 20.0.4 - 20.1.0
-itsdangerous - 1.1.0 - 2.0.1
-Jinja2 - 2.11.3 - 3.0.3
-joblib - 1.0.1 - 1.1.0
-kiwisolver - 1.3.1 - 1.3.2
-MarkupSafe - 1.1.1 - 2.0.1
-matplotlib - 3.3.4 - 3.5.1
-numpy - 1.20.1 - 1.22.1
 pandas - 1.2.2 - 1.3.5
-Pillow - 8.1.0 - 9.0.0
-pyparsing - 2.4.7 - 3.0.6
-python-dateutil - 2.8.1 - 2.8.2
-pytz - 2021.1 - 2021.3
 scikit-learn - 0.24.1 - 1.0.2
-scipy - 1.6.1 - 1.7.3
-seaborn - 0.11.1 - 0.11.2
-six - 1.15.0 - 1.16.0
-scikit-learn - 0.24.1 - 1.0.2
-threadpoolctl - 2.1.0 - 3.0.0
-Werkzeug - 1.0.1 - 2.0.2
