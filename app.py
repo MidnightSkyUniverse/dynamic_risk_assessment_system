@@ -49,7 +49,7 @@ def stats1():
 def stats2():        
     #check means, medians, and modes for each column
     command = f"select feature, mean,median,std from feature_stats where hex = '{hex_production}'"
-    data = db_select([command])
+    data = db_select(command)
     return {"data": data}
 
 #######################Diagnostics Endpoint
@@ -57,8 +57,8 @@ def stats2():
 def stats3():        
     command1 = f"select feature, percentage from missing_data where hex = '{hex_production}'"
     command2 = f"select file,timing from script_timing where hex = '{hex_production}'"
-    x = db_select([command1]) 
-    y = db_select([command2]) 
+    x = db_select(command1) 
+    y = db_select(command2) 
     z = diagnostics.outdated_packages_list()
     
     data = {
@@ -73,5 +73,5 @@ def stats3():
 def name():
     return output_model_path + apireturns
 
-if __name__ == "__main__":    
-    app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)
+#if __name__ == "__main__":    
+#    app.run(host='0.0.0.0', port=8000, debug=True, threaded=True)
