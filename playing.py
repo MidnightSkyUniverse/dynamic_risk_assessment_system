@@ -14,7 +14,7 @@ input_folder_path = config['input_folder_path']
 #command = f"""INSERT INTO ingested_files (file,hex,created) 
 #                values ('dataset2.csv', '{hex_value}','{created}');"""
 #db_insert([command])
-
+"""
 datasets = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
 stored = [x[0].strip() for x in db_select("SELECT file from ingested_files;")]
 new_datasets = list(set(datasets) - set(stored))
@@ -43,12 +43,11 @@ f1_score=0.7111111190540809
 command = f"INSERT INTO f1 (f1_score,hex) values ('{f1_score}', '{hex_value}');"
 db_insert([command])
 
-
-
 command = 'select f1_score from f1 WHERE is_production=True'
 old_f1 = db_select(command)[0][0]
 print(f"old score: {old_f1}")
-
+"""
 
 ##########################
 
+print(db_select("select hex from f1 where is_production=True")[0])
