@@ -19,7 +19,7 @@ test_file = config['test_file']
 output_model_path = config['output_model_path']
 
 ##############Function for reporting
-def score_model(file_name):
+def cf_matrix(file_name):
     """
     Confusion matrix
     """

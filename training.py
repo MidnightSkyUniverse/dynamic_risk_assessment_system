@@ -1,18 +1,17 @@
 """
     Author: Ali Binkowska
     Date: Jan 2022
-
     
 """
 import pickle
 import os
 from sklearn.linear_model import LogisticRegression
 import json
-import logging
 from functions import process_data
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
-logger = logging.getLogger()
+#import logging
+#logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+#logger = logging.getLogger()
 
 # Define paths 
 with open('config.json','r') as f:
@@ -32,7 +31,7 @@ def train_model():
     """    
 
     # Define this logistic regression model for training
-#    logging.info("Define Logistic Regression model")
+    #logging.info("Define Logistic Regression model")
     logit = LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
                     intercept_scaling=1, l1_ratio=None, max_iter=100,
                     #multi_class='warn', n_jobs=None, penalty='l2',
@@ -41,15 +40,15 @@ def train_model():
                     warm_start=False)
     
     # Fit the logistic regression to your data
-#    logging.info("Transform the data from pandas into X and y")
+    #logging.info("Transform the data from pandas into X and y")
     X, y = process_data(dataset_csv_path + output_file) 
 
     # Train the model 
-#    logging.info("Train the model on the data")
+    #logging.info("Train the model on the data")
     model = logit.fit(X,y)
     
     #write the trained model to your workspace in a file called trainedmodel.pkl
-#    logging.info(f"Save the model to file {output_model}")
+    #logging.info(f"Save the model to file {output_model}")
     pickle.dump(model, open(model_path + output_model, 'wb'))    
 
 

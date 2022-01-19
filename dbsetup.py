@@ -18,26 +18,27 @@ def create_tables():
             id SERIAL PRIMARY KEY,
             file CHAR(100) NOT NULL,
             hex CHAR(6) NOT NULL,
-            created TIMESTAMPTZ
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
         """,
         """
         CREATE TABLE f1 (
             id SERIAL PRIMARY KEY,
-            f1_score REAL NOT NULL,
+            f1_score FLOAT NOT NULL,
             hex CHAR(6) NOT NULL,
-            created TIMESTAMPTZ
+            is_production BOOLEAN,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
         """,
         """
         CREATE TABLE feature_stats (
             id SERIAL PRIMARY KEY,
             feature CHAR(100) NOT NULL,
-            mean REAL NOT NULL,
-            median REAL NOT NULL,
-            std REAL NOT NULL,
+            mean FLOAT NOT NULL,
+            median FLOAT NOT NULL,
+            std FLOAT NOT NULL,
             hex CHAR(6) NOT NULL,
-            created TIMESTAMPTZ
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
         """,
         """
@@ -46,17 +47,18 @@ def create_tables():
             feature CHAR(100) NOT NULL,
             percentage REAL NOT NULL,
             hex CHAR(6) NOT NULL,
-            created TIMESTAMPTZ
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
         """,
         """
-        CREATE TABLE pip_outdated (
+        CREATE TABLE script_timing (
             id SERIAL PRIMARY KEY,
-            list TEXT NOT NULL,
+            file VARCHAR(50) NOT NULL,
+            timing FLOAT NOT NULL,
             hex CHAR(6) NOT NULL,
-            created TIMESTAMPTZ
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
-        """
+        """,
 ]
     
     conn = None

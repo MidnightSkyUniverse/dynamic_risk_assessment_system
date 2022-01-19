@@ -7,7 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 import os
 import diagnostics
-from scoring import score_model
+import scoring 
+from functions import db_select
 
 ######################Set up variables for use in our script
 app = Flask(__name__)
@@ -21,7 +22,8 @@ test_data_path = config['test_data_path']
 output_model_path = config['output_model_path']
 output_model = config['output_model']
 prediction_model = None
-apireturns = config['apireturns']
+
+hex_production = db_select(["select hex from f1 where is_production=True"])[0][0]
 
 #######################Prediction Endpoint
 @app.route("/prediction", methods=['POST','OPTIONS'])
@@ -39,21 +41,24 @@ def predict():
 def stats1():        
     request_data = request.get_json()
     file_name = request_data['file_name']
-    response = score_model(file_name)
+    response = score_model(file_name,'istest') # hex replaced by string meaning it's test
     return {"data": response}
 
 #######################Summary Statistics Endpoint
 @app.route("/summarystats", methods=['GET','OPTIONS'])
 def stats2():        
     #check means, medians, and modes for each column
-    results =  diagnostics.dataframe_summary()
-    return {"data": results}
+    command = f"select feature, mean,median,std from feature_stats where hex = '{hex_production}'"
+    data = db_select([command])
+    return {"data": data}
 
 #######################Diagnostics Endpoint
 @app.route("/diagnostics", methods=['GET','OPTIONS'])
 def stats3():        
-    x = diagnostics.missing_data()
-    y = diagnostics.execution_time()
+    command1 = f"select feature, percentage from missing_data where hex = '{hex_production}'"
+    command2 = f"select file,timing from script_timing where hex = '{hex_production}'"
+    x = db_select([command1]) 
+    y = db_select([command2]) 
     z = diagnostics.outdated_packages_list()
     
     data = {

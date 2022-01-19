@@ -8,11 +8,11 @@ import timeit
 import os
 import json
 import pickle
-import logging 
 from functions import process_data, execute_command
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
-logger = logging.getLogger()
+#import logging 
+#logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+#logger = logging.getLogger()
 
 ##################Load config.json and get environment variables
 with open('config.json','r') as f:
@@ -55,55 +55,52 @@ def dataframe_summary():
     """
     logging.info(f"Calculate the statistics for the dataset")
     thedata = pd.read_csv(dataset_csv_path + output_file)
-
+    
     mean = thedata.mean(axis=0)
     median = thedata.median(axis=0)
     std = thedata.std(axis=0)
-    results = []
+    commands = []
     for col in numeric_cols:
         logging.info(f"Statistics for  for {col}")
         mean_ = mean[col]
         median_ = median[col]
         std_ = std[col]
-        logging.info(f"mean: {mean_} - median: {median_} - std: {std_}")
-        results.append({
-                "feature": col, 
-                'mean': mean_,
-                'median': median_,
-                'std': std_
-        })
-        
-    return results
+        #logging.info(f"mean: {mean_} - median: {median_} - std: {std_}")
+        command = f"""INSERT INTO feature_stats(feature,mean,median,std,hex) 
+                    values ('{col}','{mean}','{median}','{std}','{hex_value}')"""
+        commands.append(command) 
 
-def missing_data():
+    db_insert(commands)
+
+def missing_data(hex_value):
     """
     Statistics on NA data
     """
-    logging.info(f"Calculate the statistics for the dataset")
+    #logging.info(f"Calculate the statistics for the dataset")
     thedata = pd.read_csv(dataset_csv_path + output_file)
 
     na = thedata.isna().sum()
-    
     results = [na[i]/len(thedata.index) for i in range(len(na))]
-    return results
-
-##################Function to get timings
-def execution_time():
-    starttime = timeit.default_timer()
-    os.system("python training.py")
-    timing1=timeit.default_timer() - starttime
+    column_names = thedata.columns.values
     
-    starttime = timeit.default_timer()
-    os.system("python ingestion.py")
-    timing2=timeit.default_timer() - starttime
-    
-    logging.info(f"Time to execute training.py: {timing1}")
-    logging.info(f"Time to execute ingestion.py: {timing2}")
+    commands = []
+    for x,y in zip(column_names,na):
+        command =f"""INSERT INTO missing_data(feature,percentage,hex) 
+                values ('{x}','{y}','{hex_value}');""" 
+    commands.append(command) 
 
-    return (timing1, timing2)
+    db_insert(commands)
+
+
+def execution_time(script, timing, hex_value):
+    
+    command =f"""INSERT INTO script_times(file,percentage,hex) 
+                values ('{script}','{timing}','{hex_value}');""" 
+    db_insert([command])
+
 
 ##################Function to check dependencies
-def outdated_packages_list():
+def outdated_packages_list(hex_value):
     """
     Use requirements.txt to list current and latest version of required packages
     """
@@ -123,7 +120,6 @@ def outdated_packages_list():
                 results.append(f"{y[0]} - {y[1]} - {y[2]}")
     
     return results
-
 
 #if __name__ == '__main__':
 #    model_predictions()

@@ -61,6 +61,28 @@ def db_select(command):
 
     return record
 
+def set_f1_as_production(hex_value):
+    conn = None
+    record = None
+    try:
+        # connect to the PostgreSQL server
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+        # create table one by one
+        command = "update f1 set is_production = False;"
+        cur.execute(command)
+        command = f"update f1 set is_production = True  where hex='{hex_value}';"
+        cur.execute(command)
+        # close communication with the PostgreSQL database server
+        cur.close()
+        # commit the changes
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
 
 def random_hex():
     return "{:06x}".format(random.randint(0, 0xFFFFFF))

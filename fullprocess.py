@@ -9,6 +9,7 @@ import os
 import logging
 import json
 import ast
+import timeit
 sys.path.append(os.getcwd())
 
 import ingestion
@@ -20,7 +21,7 @@ import reporting
 import functions
 from functions import random_hex, db_select, db_insert
 
-logging.basicConfig(filename='fullprocess.log', level=logging.INFO, format="%(asctime)s - %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
 
 
@@ -31,9 +32,7 @@ with open('config.json','r') as f:
 input_folder_path = config['input_folder_path']
 output_folder_path = config['output_folder_path']
 output_file = config['output_file']
-ingested_files = config['ingested_files']
 prod_deployment_path = config['prod_deployment_path']
-score = config['scoring']
 # test data
 test_data_path = os.path.join(config['test_data_path'])
 test_file = config['test_file']
@@ -46,33 +45,25 @@ hex_value = random_hex()
 # datasets into one and use it to test the model
 # ********************************************************** 
 
-# Look for all csv fils in the data folder
-csv_files = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
-
-# Check the db for previously ingested
-
-try:
-    with open(prod_deployment_path + ingested_files, 'rb') as f:
-        lines = f.readlines()
-except FileNotFoundError:
-    logging.error(f"The file {ingested_files} cannot be found")
-    lines = []
-
-# Compare lists of ingested files and all csv files
-for line_ in lines:
-    if line_.decode('utf8').strip() in csv_files:
-        csv_files.remove(line_.decode('utf8').strip())
+# Look for all csv fils in the data folder and all files stored in the db
+local_csv = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
+stored_csv = [x[0].strip() for x in db_select("SELECT file from ingested_files;")]
+new_csv = list(set(local_csv) - set(stored_csv))
 
 # If there is new data, combine all csv-s and run train the model again
-if len(csv_files):
-    logging.info(f"Files that have not been included in the dataset {csv_files}")
+if len(new_csv):
+    logging.info(f"Step 1: New datasets were found:  {new_csv}")
     try:
-        ingestion.merge_multiple_dataframe()
-        logging.info("Executed ingestion() script to include new data")
+        # Meassure timing of the script
+        starttime = timeit.default_timer()
+        ingestion.merge_multiple_dataframe(hex_value)
+        timing=timeit.default_timer() - starttime
+        execution_time('ingestion.py',timing,hex_value)
+        logging.info("Step 1: Executed ingestion() script successfully")
     except:
-        logging.error("Issue with ingestion() function")
+        logging.error("Step 1: Issue with ingestion() script")
 else:
-    logging.info(f"There are no new datasets in {input_folder_path}")
+    logging.info(f"Step 1: There are no new datasets in {input_folder_path}")
     # We can finish the script here
     exit()
 
@@ -81,18 +72,18 @@ else:
 # and scsoring (F1). Old and new scores are compared.
 # ********************************************************** 
 
-logging.error("Use production model to do predictions on new dataset")
+logging.error("Step 2: Use production model to do predictions on new dataset")
 predictions = diagnostics.model_predictions(output_folder_path + output_file)
-new_f1 = scoring.score_model(output_folder_path + output_file) 
-logging.error(f"New F1 score is {new_f1}")
+new_f1 = scoring.score_model(output_folder_path + output_file,'istest') 
+logging.error(f"Step 2: New F1 score is {new_f1}")
     
-# Read the last score 
-with open(prod_deployment_path + score, 'r') as f:
-    old_f1 = ast.literal_eval(f.read().strip())     
-logging.error(f"Previous F1 score is {old_f1['score']}")
+# Read the PRODUCTION score
+command = 'select f1_score from f1 WHERE is_production=True' 
+old_f1 = db_select(command)[0][0]
+logging.error(f"Previous F1 score is {old_f1}")
 
-if new_f1:# >= float(old_f1['score']): 
-    logging.info("Model is not drifting, so we can conclude the progam")
+if not new_f1:# >= float(old_f1['score']): 
+    logging.info("Model is not drifting => exit()")
     # Once there is no model drift, we can complete the script here
     exit()
 
@@ -101,28 +92,40 @@ if new_f1:# >= float(old_f1['score']):
 # Model re-training & scoring. Copy new model, scores and
 # list of ingested files to production folder
 # ********************************************************** 
-logging.info("Training of the model on the new dataset")
+logging.info("Training the model on the new dataset")
+starttime = timeit.default_timer()
 training.train_model()
+timing=timeit.default_timer() - starttime
+execution_time('training.py',timing,hex_value)
+
 
 predictions = diagnostics.model_predictions(output_folder_path + output_file)
-new_f1 = scoring.score_model(test_data_path + test_file) 
+new_f1 = scoring.score_model(test_data_path + test_file, hex_value) 
 logging.error(f"New F1 score is {new_f1}")
  
-logging.info(f"Copy model, scores and list of ingested files to {prod_deployment_path}")
-deployment.store_model_into_pickle()
+logging.info(f"Copy model to {prod_deployment_path}, set F1 score as PRODUCTION")
+deployment.store_model_into_pickle(hex_value)
 
 # ************************* Step 4 ************************* 
 # Run reporting which will create and save confusion matrix
 # Execute apicalls.py for diagnostics
 # ********************************************************** 
-reporting.score_model(test_data_path + test_file)
 try:
+    reporting.cf_matrix(test_data_path + test_file)
     logging.info("Confusion matrix has been created")
 except:
     logging.error("Issue with confusion matrix creation (reporting.py script)")
 
-results = functions.execute_command(['python','apicalls.py'])
 try:
+    diagnostics.dataframe_summary(hex_value) 
+    diagnostics.missing_data()
+    logging.info("Diagnostics have been executed for missing data and feature stats")
+except:
+    logging.error("Issue with running diagnostics")
+
+
+try:
+    results = functions.execute_command(['python','apicalls.py'])
     logging.info(f"API calls executed successfully {results}")
 except:
     logging.error("Issue with apicalls.py")

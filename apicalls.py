@@ -1,10 +1,9 @@
 import requests
 import json 
+from functions import db_select 
 
 URL = "http://127.0.0.1:8000"
-header = {
-            "Content-Type" : "application/json",
-        }
+header = {"Content-Type" : "application/json"}
 data = {'file_name':'testdata/testdata.csv'}
 r1 = requests.post(URL+'/prediction', headers=header, data = json.dumps(data)).json()
 r2 = requests.post(URL+'/scoring',    headers=header, data = json.dumps(data)).json()
