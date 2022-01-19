@@ -2,6 +2,7 @@
 """
 import os
 import json
+import functions
 
 #import logging
 #logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
@@ -23,4 +24,4 @@ def store_model_into_pickle(hex_value):
     os.system(f"cp {output_model_path}/{model_path} {prod_deployment_path}")
         
     #logging.info(f"Set model scoring as PRODUCTION in the db") 
-    set_f1_as_production(hex_value)
+    functions.set_f1_as_production(hex_value)

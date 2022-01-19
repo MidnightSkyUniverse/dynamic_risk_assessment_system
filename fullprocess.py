@@ -58,10 +58,11 @@ if len(new_csv):
         starttime = timeit.default_timer()
         ingestion.merge_multiple_dataframe(hex_value)
         timing=timeit.default_timer() - starttime
-        execution_time('ingestion.py',timing,hex_value)
+        diagnostics.execution_time('ingestion.py',timing,hex_value)
         logging.info("Step 1: Executed ingestion() script successfully")
-    except:
-        logging.error("Step 1: Issue with ingestion() script")
+    except Exception as e:
+        logging.error("Error: Issue with ingestion() script")
+        logging.error(f"Error: {e}")
 else:
     logging.info(f"Step 1: There are no new datasets in {input_folder_path}")
     # We can finish the script here
@@ -79,11 +80,15 @@ logging.error(f"Step 2: New F1 score is {new_f1}")
     
 # Read the PRODUCTION score
 command = 'select f1_score from f1 WHERE is_production=True' 
-old_f1 = db_select(command)[0][0]
-logging.error(f"Previous F1 score is {old_f1}")
+try:
+    old_f1 = db_select(command)[0][0]
+    logging.info(f"Step 2: Previous F1 score is {old_f1}")
+except:
+    old_f1 = 0
+    logging.error(f"Error: F1 score set to 0")
 
 if not new_f1:# >= float(old_f1['score']): 
-    logging.info("Model is not drifting => exit()")
+    logging.info("Step 2: Model is not drifting => exit()")
     # Once there is no model drift, we can complete the script here
     exit()
 
@@ -92,18 +97,18 @@ if not new_f1:# >= float(old_f1['score']):
 # Model re-training & scoring. Copy new model, scores and
 # list of ingested files to production folder
 # ********************************************************** 
-logging.info("Training the model on the new dataset")
+logging.info("Step 3: Training the model on the new dataset")
 starttime = timeit.default_timer()
 training.train_model()
 timing=timeit.default_timer() - starttime
-execution_time('training.py',timing,hex_value)
+diagnostics.execution_time('training.py',timing,hex_value)
 
 
 predictions = diagnostics.model_predictions(output_folder_path + output_file)
 new_f1 = scoring.score_model(test_data_path + test_file, hex_value) 
-logging.error(f"New F1 score is {new_f1}")
+logging.error(f"Step 3: New F1 score is {new_f1}")
  
-logging.info(f"Copy model to {prod_deployment_path}, set F1 score as PRODUCTION")
+logging.info(f"Step 4: Copy model to {prod_deployment_path}, set F1 score as PRODUCTION")
 deployment.store_model_into_pickle(hex_value)
 
 # ************************* Step 4 ************************* 
@@ -112,24 +117,24 @@ deployment.store_model_into_pickle(hex_value)
 # ********************************************************** 
 try:
     reporting.cf_matrix(test_data_path + test_file)
-    logging.info("Confusion matrix has been created")
+    logging.info("Step 4: Confusion matrix has been created")
 except:
-    logging.error("Issue with confusion matrix creation (reporting.py script)")
+    logging.error("Error: Issue with confusion matrix creation (reporting.py script)")
 
 try:
     diagnostics.dataframe_summary(hex_value) 
-    diagnostics.missing_data()
-    logging.info("Diagnostics have been executed for missing data and feature stats")
-except:
-    logging.error("Issue with running diagnostics")
-
-
+    diagnostics.missing_data(hex_value)
+    logging.info("Step 4: Diagnostics have been executed for missing data and feature stats")
+except Exception as e:
+    logging.error("Error: Issue with running diagnostics")
+    logging.error(f"Error: {e}")
+"""
 try:
     results = functions.execute_command(['python','apicalls.py'])
-    logging.info(f"API calls executed successfully {results}")
+    logging.info(f"Step 4: API calls executed successfully {results}")
 except:
-    logging.error("Issue with apicalls.py")
-
+    logging.error("Error: Issue with apicalls.py")
+"""
 
 
 

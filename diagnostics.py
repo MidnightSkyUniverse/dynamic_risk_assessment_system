@@ -8,7 +8,7 @@ import timeit
 import os
 import json
 import pickle
-from functions import process_data, execute_command
+from functions import process_data, execute_command, db_insert
 
 #import logging 
 #logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
@@ -49,11 +49,11 @@ def model_predictions(file_name):
     return predicted 
 
 ##################Function to get summary statistics
-def dataframe_summary():
+def dataframe_summary(hex_value):
     """
     Statistics:  means, medians, and standard deviations
     """
-    logging.info(f"Calculate the statistics for the dataset")
+    #logging.info(f"Calculate the statistics for the dataset")
     thedata = pd.read_csv(dataset_csv_path + output_file)
     
     mean = thedata.mean(axis=0)
@@ -61,13 +61,13 @@ def dataframe_summary():
     std = thedata.std(axis=0)
     commands = []
     for col in numeric_cols:
-        logging.info(f"Statistics for  for {col}")
+        #logging.info(f"Statistics for  for {col}")
         mean_ = mean[col]
         median_ = median[col]
         std_ = std[col]
         #logging.info(f"mean: {mean_} - median: {median_} - std: {std_}")
         command = f"""INSERT INTO feature_stats(feature,mean,median,std,hex) 
-                    values ('{col}','{mean}','{median}','{std}','{hex_value}')"""
+                    values ('{col}','{mean_}','{median_}','{std_}','{hex_value}')"""
         commands.append(command) 
 
     db_insert(commands)
@@ -94,7 +94,7 @@ def missing_data(hex_value):
 
 def execution_time(script, timing, hex_value):
     
-    command =f"""INSERT INTO script_times(file,percentage,hex) 
+    command =f"""INSERT INTO script_timing(file,timing,hex) 
                 values ('{script}','{timing}','{hex_value}');""" 
     db_insert([command])
 
@@ -104,7 +104,7 @@ def outdated_packages_list(hex_value):
     """
     Use requirements.txt to list current and latest version of required packages
     """
-    logging.info("Prepare list of outdated packages with target version")
+    #logging.info("Prepare list of outdated packages with target version")
     # collect the command output
     pip_outdated = execute_command(["pip", "list", "--outdated"])
 
@@ -123,7 +123,7 @@ def outdated_packages_list(hex_value):
 
 #if __name__ == '__main__':
 #    model_predictions()
-#    dataframe_summary()
+#    dataframe_summary('istest')
 #    missing_data()
 #    execution_time()
 #    outdated_packages_list()

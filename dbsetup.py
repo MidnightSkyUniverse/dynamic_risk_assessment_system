@@ -16,7 +16,7 @@ def create_tables():
         """
         CREATE TABLE ingested_files (
             id SERIAL PRIMARY KEY,
-            file CHAR(100) NOT NULL,
+            file CHAR(30) NOT NULL,
             hex CHAR(6) NOT NULL,
             created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         )
@@ -33,7 +33,7 @@ def create_tables():
         """
         CREATE TABLE feature_stats (
             id SERIAL PRIMARY KEY,
-            feature CHAR(100) NOT NULL,
+            feature CHAR(30) NOT NULL,
             mean FLOAT NOT NULL,
             median FLOAT NOT NULL,
             std FLOAT NOT NULL,
@@ -44,7 +44,7 @@ def create_tables():
         """
         CREATE TABLE missing_data (
             id SERIAL PRIMARY KEY,
-            feature CHAR(100) NOT NULL,
+            feature CHAR(30) NOT NULL,
             percentage REAL NOT NULL,
             hex CHAR(6) NOT NULL,
             created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -53,7 +53,7 @@ def create_tables():
         """
         CREATE TABLE script_timing (
             id SERIAL PRIMARY KEY,
-            file VARCHAR(50) NOT NULL,
+            file VARCHAR(30) NOT NULL,
             timing FLOAT NOT NULL,
             hex CHAR(6) NOT NULL,
             created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
