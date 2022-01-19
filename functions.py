@@ -6,13 +6,64 @@
 """
 import pandas as pd
 import json
+import random
 import subprocess
+import psycopg2
 
 with open('config.json', 'r') as f:
     config = json.load(f)
 
 label = config['label']
 numeric_cols = config['numeric_cols']
+DATABASE_URL = config['DATABASE_URL']
+
+
+def db_insert(commands):
+    conn = None
+    try:
+        # connect to the PostgreSQL server
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+        # create table one by one
+        for command in commands:
+            cur.execute(command)
+        # close communication with the PostgreSQL database server
+        cur.close()
+        # commit the changes
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    
+def db_select(command):
+    conn = None
+    record = None
+    try:
+        # connect to the PostgreSQL server
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+        # create table one by one
+        cur.execute(command)
+        # Fetch result
+        record = cur.fetchall()
+        # close communication with the PostgreSQL database server
+        cur.close()
+        # commit the changes
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    return record
+
+
+def random_hex():
+    return "{:06x}".format(random.randint(0, 0xFFFFFF))
 
 
 def process_data(file_path):

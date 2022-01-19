@@ -2,7 +2,6 @@ import requests
 import json 
 
 URL = "http://127.0.0.1:8000"
-
 header = {
             "Content-Type" : "application/json",
         }
@@ -12,8 +11,8 @@ r2 = requests.post(URL+'/scoring',    headers=header, data = json.dumps(data)).j
 
 r3 = requests.get(URL+'/summarystats').json()
 r4 = requests.get(URL+'/diagnostics').json()
-
 r5 = requests.get(URL+'/apireturns').content.decode('utf8').strip()
+
 
 #combine all API responses
 with open(r5,"w") as f:

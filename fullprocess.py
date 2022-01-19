@@ -18,6 +18,8 @@ import deployment
 import diagnostics
 import reporting
 import functions
+from functions import random_hex, db_select, db_insert
+
 logging.basicConfig(filename='fullprocess.log', level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
 
@@ -36,23 +38,25 @@ score = config['scoring']
 test_data_path = os.path.join(config['test_data_path'])
 test_file = config['test_file']
 
+# This value will be used to recognize the data inserted in one session
+hex_value = random_hex()
 
 # ************************* Step 1 ************************* 
 # check existance of new data. If positive, combine all 
 # datasets into one and use it to test the model
 # ********************************************************** 
 
-# Combine list of .csv files with a list of files that contributed to the dataset
-logging.info(f"Check for new data files in {input_folder_path}")
+# Look for all csv fils in the data folder
+csv_files = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
+
+# Check the db for previously ingested
+
 try:
     with open(prod_deployment_path + ingested_files, 'rb') as f:
         lines = f.readlines()
 except FileNotFoundError:
     logging.error(f"The file {ingested_files} cannot be found")
     lines = []
-
-# Look for all csv fils in data folder
-csv_files = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
 
 # Compare lists of ingested files and all csv files
 for line_ in lines:

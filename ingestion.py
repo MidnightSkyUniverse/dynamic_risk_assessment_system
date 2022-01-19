@@ -6,10 +6,12 @@
 import pandas as pd
 import os
 import json
-import logging
+#import logging
+import datetime
+from functions import db_select, db_insert
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
-logger = logging.getLogger()
+#logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+#logger = logging.getLogger()
 
 
 #############Load config.json and get input and output paths
@@ -22,9 +24,8 @@ output_file = config['output_file']
 ingested_files = config['ingested_files']
 
 
-
 #############Function for data ingestion
-def merge_multiple_dataframe():
+def merge_multiple_dataframe(hex_value):
     #check for datasets, compile them together, and write to an output file
 #    logging.info(f"Collect all csv files from {input_folder_path} and merge them")
     datasets = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
@@ -44,7 +45,18 @@ def merge_multiple_dataframe():
         for dataset in datasets:
             f.write(dataset+'\n')
 
+    # Check what files already exists in the db
+    files = db_select("SELECT file from ingested_files;")
+    # SQL to insert ingested filenames to the database
 
+    commands = []
+    created = datetime.fromtimestamp(timestamp, timezone.utc)
+    for dataset in datasets:
+        commands.append(f"""
+        INSERT INTO ingested_files (file,hex,created) values ({dataset}, {hex_value},{created})
+        """
+        )
 
-#if __name__ == '__main__':
-#    merge_multiple_dataframe()
+    ]
+    db_insert(commands)
+
