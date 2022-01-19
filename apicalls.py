@@ -30,19 +30,22 @@ with open(r5,"w") as f:
     f.write("Summary stats for each feature\n")
     f.write("Feature - Mean - Median - Std\n")
     for row in r3['data']:
-        f.write(f"{row[0]} - {row[1]} - {row[2]} - {row[3]}  ")
+        f.write(f"{row[0]} - {row[1]} - {row[2]} - {row[3]}\n")
     f.write('\n------------------------------------------------\n')
 
 
     f.write("% of missing data per column\n")
-    f.write(str(r4['missing_data']))
+    for row in r4['missing_data']:
+        f.write(f"{row[0]} - {row[1]}\n")
     f.write('\n------------------------------------------------\n')
+
     f.write("Execution times\n")
-    f.write(str(r4['execution_time']))
+    for row in r4['execution_time']:
+        f.write(f"{row[0]} - {row[1]}\n")
     f.write('\n------------------------------------------------\n')
     f.write("List of outdated packages: package name - installed version - newest available version\n")
     for row in r4['outdated_packages']:
-        f.write(row+'\n')
+        f.write(f"{row}")
 
 
 

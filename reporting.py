@@ -7,7 +7,7 @@ import json
 import os
 from diagnostics import model_predictions
 from functions import process_data
-
+from reportlab.pdfgen import canvas
 
 ###############Load config.json and get path variables
 with open('config.json','r') as f:
@@ -18,7 +18,14 @@ test_file = config['test_file']
 
 output_model_path = config['output_model_path']
 
-##############Function for reporting
+def pdf_generate():
+    """
+    Generate report including information about performance of the model
+    """
+    c = canvas.Canvas(output_model_path + "report.pdf")
+    c.drawString(100,750,"Welcome to Reportlab!")
+    c.save()
+
 def cf_matrix(file_name):
     """
     Confusion matrix
