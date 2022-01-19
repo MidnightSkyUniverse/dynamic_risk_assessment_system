@@ -18,14 +18,14 @@ input_folder_path = config['input_folder_path']
 datasets = [x for x in os.listdir(input_folder_path) if x[-4:]=='.csv']
 stored = [x[0].strip() for x in db_select("SELECT file from ingested_files;")]
 new_datasets = list(set(datasets) - set(stored))
-
-commands=[]
-for dataset in new_datasets:
-    command = f"""INSERT INTO ingested_files (file,hex) 
-                values ('{dataset}', '{hex_value}');"""
-    commands.append(command)
-db_insert(commands)
-
+"""
+#commands=[]
+#for dataset in new_datasets:
+#    command = f"""INSERT INTO ingested_files (file,hex) 
+#                values ('{dataset}', '{hex_value}');"""
+#    commands.append(command)
+#db_insert(commands)
+"""
 answer = db_select("select * from ingested_files")
 #print(answer)
 

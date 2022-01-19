@@ -20,8 +20,9 @@ dataset_csv_path = os.path.join(config['output_folder_path'])
 test_data_path = config['test_data_path']
 output_model_path = config['output_model_path']
 output_model = config['output_model']
-prediction_model = None
+apireturns = config['apireturns']
 
+prediction_model = None
 hex_production = db_select("select hex from f1 where is_production=True")[0][0]
 
 #######################Prediction Endpoint
@@ -40,7 +41,7 @@ def predict():
 def stats1():        
     request_data = request.get_json()
     file_name = request_data['file_name']
-    response = score_model(file_name,'istest') # hex replaced by string meaning it's test
+    response = scoring.score_model(file_name,'istest') # hex replaced by string meaning it's test
     return {"data": response}
 
 #######################Summary Statistics Endpoint
