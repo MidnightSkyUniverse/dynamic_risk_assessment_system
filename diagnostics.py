@@ -100,7 +100,7 @@ def execution_time(script, timing, hex_value):
 
 
 ##################Function to check dependencies
-def outdated_packages_list(hex_value):
+def outdated_packages_list():
     """
     Use requirements.txt to list current and latest version of required packages
     """
