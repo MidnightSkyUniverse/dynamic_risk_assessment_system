@@ -37,12 +37,13 @@ def predict():
 
 
 #######################Scoring Endpoint
-@app.route("/scoring", methods=['POST','OPTIONS'])
+@app.route("/scoring", methods=['GET','OPTIONS'])
 def stats1():        
-    request_data = request.get_json()
-    file_name = request_data['file_name']
-    response = scoring.score_model(file_name,'istest') # hex replaced by string meaning it's test
-    return {"data": response}
+    #request_data = request.get_json()
+    #file_name = request_data['file_name']
+    #response = scoring.score_model(file_name,'istest') # hex replaced by string meaning it's test
+    f1_score = db_select("select f1_score from f1 where is_production=True")[0][0]
+    return {"data": f1_score}
 
 #######################Summary Statistics Endpoint
 @app.route("/summarystats", methods=['GET','OPTIONS'])
