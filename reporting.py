@@ -18,12 +18,12 @@ test_file = config['test_file']
 
 output_model_path = config['output_model_path']
 
-def pdf_generate():
+def pdf_generate(text):
     """
     Generate report including information about performance of the model
     """
     c = canvas.Canvas(output_model_path + "report.pdf")
-    c.drawString(100,750,"Welcome to Reportlab!")
+    c.drawString(100,750,text)
     c.save()
 
 def cf_matrix(file_name):

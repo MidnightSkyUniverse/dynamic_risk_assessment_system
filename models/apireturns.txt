@@ -8,12 +8,18 @@ F1 score for production model
 ------------------------------------------------
 Summary stats for each feature
 Feature - Mean - Median - Std
-lastmonth_activity             - 2895.7884615384614 - 99.0 - 13891.799947375555  lastyear_activity              - 1133.2307692307693 - 422.5 - 2118.8560325982103  number_of_employees            - 242.17307692307693 - 22.5 - 601.6143876419495  
+lastmonth_activity             - 2895.7884615384614 - 99.0 - 13891.799947375555
+lastyear_activity              - 1133.2307692307693 - 422.5 - 2118.8560325982103
+number_of_employees            - 242.17307692307693 - 22.5 - 601.6143876419495
+
 ------------------------------------------------
 % of missing data per column
-[['exited                        ', 0.0]]
+exited                         - 0.0
+
 ------------------------------------------------
 Execution times
-[['ingestion.py', 1.9331317758187652], ['training.py', 0.00694658700376749]]
+ingestion.py - 1.9331317758187652
+training.py - 0.00694658700376749
+
 ------------------------------------------------
 List of outdated packages: package name - installed version - newest available version

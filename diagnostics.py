@@ -87,7 +87,7 @@ def missing_data(hex_value):
     for x,y in zip(column_names,na):
         command =f"""INSERT INTO missing_data(feature,percentage,hex) 
                 values ('{x}','{y}','{hex_value}');""" 
-    commands.append(command) 
+        commands.append(command) 
 
     db_insert(commands)
 
@@ -124,7 +124,7 @@ def outdated_packages_list():
 #if __name__ == '__main__':
 #    model_predictions()
 #    dataframe_summary('istest')
-#    missing_data()
+#    missing_data('fd0e91')
 #    execution_time()
 #    outdated_packages_list()
 

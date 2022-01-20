@@ -111,6 +111,7 @@ logging.error(f"Step 3: New F1 score is {new_f1}")
 logging.info(f"Step 4: Copy model to {prod_deployment_path}, set F1 score as PRODUCTION")
 deployment.store_model_into_pickle(hex_value)
 
+
 # ************************* Step 4 ************************* 
 # Run reporting which will create and save confusion matrix
 # Execute apicalls.py for diagnostics
