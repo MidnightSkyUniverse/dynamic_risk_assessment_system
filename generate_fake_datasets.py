@@ -21,26 +21,26 @@ for col in df.columns.values:
 # number_of_employees (1, 3782), mean=242, median = 22.5, std=601
 
 
-corporation = [get_random_string() for x in range(0,100)]
-exited = [random.randint(0,1) for x in range(0,100)]
+corporation = [get_random_string() for x in range(0,1000)]
+exited = [random.randint(0,1) for x in range(0,1000)]
 
-r1 = [random.randint(0,100000) for x in range(1,5) ]
-r2 = [random.randint(0,3000) for x in range(1,40) ]
-r3 = [random.randint(0,100) for x in range(1,55) ]
+r1 = [random.randint(0,100000) for x in range(1,150) ]
+r2 = [random.randint(0,3000) for x in range(1,300) ]
+r3 = [random.randint(0,100) for x in range(1,550) ]
 #print (f"{mean(r1+r2+r3)} - {median(r1+r2+r3)} - {stdev(r1+r2+r3)}")
 lastmonth_activity = r1+r2+r3
 random.shuffle(lastmonth_activity)
 
-r1 = [random.randint(0,11000) for x in range(1,10) ]
-r2 = [random.randint(0,1100) for x in range(1,65) ]
-r3 = [random.randint(0,450) for x in range(1,25) ]
+r1 = [random.randint(0,11000) for x in range(1,100) ]
+r2 = [random.randint(0,1100) for x in range(1,750) ]
+r3 = [random.randint(0,450) for x in range(1,150) ]
 #print (f"{mean(r1+r2+r3)} - {median(r1+r2+r3)} - {stdev(r1+r2+r3)}")
 lastyear_activity = r1+r2+r3
 random.shuffle(lastyear_activity)
 
-r1 = [random.randint(0,4000) for x in range(1,5) ]
-r2 = [random.randint(0,250) for x in range(1,40) ]
-r3 = [random.randint(0,25) for x in range(1,45) ]
+r1 = [random.randint(0,4000) for x in range(1,20) ]
+r2 = [random.randint(0,250) for x in range(1,430) ]
+r3 = [random.randint(0,25) for x in range(1,450) ]
 #print (f"{mean(r1+r2+r3)} - {median(r1+r2+r3)} - {stdev(r1+r2+r3)}")
 number_of_employees = r1+r2+r3
 random.shuffle(number_of_employees)
@@ -51,4 +51,4 @@ for x,y,z,v,e in zip(corporation, lastmonth_activity, lastyear_activity, number_
 
 df2 = pd.DataFrame(data)
 #print(df2)
-df2.to_csv("sourcedata/dataset2.csv",index=False)
+df2.to_csv("sourcedata/dataset3.csv",index=False)

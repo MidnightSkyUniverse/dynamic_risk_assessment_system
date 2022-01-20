@@ -6,20 +6,12 @@
 """
 import sys
 import os
+import subprocess
 import logging
 import json
 import ast
 import timeit
 sys.path.append(os.getcwd())
-
-import ingestion
-import training
-import scoring
-import deployment
-import diagnostics
-import reporting
-import functions
-from functions import random_hex, db_select, db_insert
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 logger = logging.getLogger()
@@ -36,8 +28,24 @@ prod_deployment_path = config['prod_deployment_path']
 # test data
 test_data_path = os.path.join(config['test_data_path'])
 test_file = config['test_file']
-
 # This value will be used to recognize the data inserted in one session
+
+# Save the link to Heroku database, the link can change between session
+DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+postgreSQL = config['postgreSQL']
+with open(config['postgreSQL'],"w") as f:
+    f.write('{ "DATABASE_URL": "' + DATABASE_URL + '" }')
+
+# Import of script will take place once database link is defined
+import ingestion
+import training
+import scoring
+import deployment
+import diagnostics
+import reporting
+import functions
+from functions import random_hex, db_select, db_insert
+
 hex_value = random_hex()
 
 # ************************* Step 1 ************************* 

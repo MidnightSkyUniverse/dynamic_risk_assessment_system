@@ -15,8 +15,11 @@ with open('config.json', 'r') as f:
 
 label = config['label']
 numeric_cols = config['numeric_cols']
-DATABASE_URL = config['DATABASE_URL']
+postgreSQL = config['postgreSQL']
 
+#DATABASE_URL = config['DATABASE_URL']
+with open(postgreSQL, 'r') as f:
+    DATABASE_URL = json.load(f)['DATABASE_URL']
 
 def db_insert(commands):
     conn = None

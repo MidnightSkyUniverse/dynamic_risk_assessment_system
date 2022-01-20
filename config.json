@@ -8,7 +8,7 @@
 	"prod_deployment_path": "production_deployment/", 
 	"output_file": "finaldata.csv",
 	"apireturns": "apireturns.txt",
+	"postgreSQL": "postgreSQL.json",
 	"label": "exited",
-	"numeric_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"],
-	"DATABASE_URL": "postgres://hktregfnxstmmw:b2ef6b42e990a72d46c4919d14dc9b8045d0e67b1634b391b0b0b336f5a478ad@ec2-54-220-243-77.eu-west-1.compute.amazonaws.com:5432/dbare3mq9hj3jr"
+	"numeric_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"]
 }
