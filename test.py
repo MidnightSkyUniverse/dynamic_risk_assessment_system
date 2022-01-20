@@ -1,12 +1,16 @@
 import subprocess
 import json
+import matplotlib.pyplot as plt
+from functions import db_select
 
-output = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
-print(output)
+def draw_f1():
+    f1_scores = db_select("SELECT f1_score from f1;")
+    f1list = [f[0] for f in f1_scores]
+    print(f1list)
+   
+    plt.plot(f1list)
+    f = plt.figure(figsize=(18,8),edgecolor='red') 
+    plt.savefig('models/figure.png',format='png')
 
-
-with open('postgreSQL.json', 'r') as f:
-    DATABASE_URL = json.load(f)['DATABASE_URL']
-
-print(DATABASE_URL)
-
+if __name__ == '__main__':
+    draw_f1()

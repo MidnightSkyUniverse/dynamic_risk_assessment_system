@@ -45,6 +45,7 @@ import diagnostics
 import reporting
 import functions
 from functions import random_hex, db_select, db_insert
+from reporting import  draw_f1,  draw_timing, draw_stats_on_features
 
 hex_value = random_hex()
 
@@ -137,6 +138,16 @@ try:
 except Exception as e:
     logging.error("Error: Issue with running diagnostics")
     logging.error(f"Error: {e}")
+
+try:
+    draw_f1()
+    draw_stats_on_features()
+    draw_timing()
+    logging.info("Step 4: Charts have been generated")
+except Exception as e:
+    logging.error("Error: Issue with running generating charts")
+    logging.error(f"{e}")
+
 """
 try:
     results = functions.execute_command(['python','apicalls.py'])
