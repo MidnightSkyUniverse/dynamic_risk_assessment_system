@@ -1,3 +1,3 @@
-__pycache__/
-sourcedata/
 postgreSQL.conf
+sourcedata
+__pycache__
