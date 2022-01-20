@@ -1,4 +1,4 @@
-name: census_fastAPI
+name: risk_assess
 channels:
   - conda-forge
   - defaults
@@ -7,7 +7,6 @@ dependencies:
   - pip
   - pytest
   - flake8
-  - joblib
   - scikit-learn
   - pre-commit
 

@@ -2,8 +2,9 @@
 With an assumption that we have a Machine Learning model in production, the project
 aims to check in regular intervals (per crontab configuration) for new datasets
 and acts upon any new data that is saved. 
-The model is tested for drift, re-train if needed and new reporting of the model performance,
-data quality and timing of execution is saved to the database.
+The model is tested for checking whether model drift, re-train if needed 
+and new reporting of the model performance, data quality and timing of execution 
+is saved to the database.
 
 This project us par of Udacity nanodegree program.
 
@@ -24,12 +25,15 @@ Technologies used in the project
 
 #### Conda environment
 This project was setup using miniconda. To setup the enviornment run:
-```conda env create -f environment.yml```
+```conda env create -f conda_local.env```
 
 #### Heroku with PostgreSQL
 The project saves the data to Heroku database. So it is required to setup remote 
-database and update DATABASE_URL to point to the database
+database and update DATABASE_URL to point to the database.
 
+Script `dbsetup.py` creates tables in the database so it's first one to be executed before
+we move to running next steps.
+SCript `drop_tables.py` is used to drop all the tables so `dbsetup.py` can be re-run.
 
 #### Project execution
 
