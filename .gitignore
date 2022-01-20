@@ -1,4 +1,4 @@
 sourcedata
-postgreSQL.conf
+postgreSQL.json
 __pycache__
 .ipynb_checkpoints
