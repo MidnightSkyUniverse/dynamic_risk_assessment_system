@@ -99,7 +99,8 @@ except:
     old_f1 = 0
     logging.error(f"Error: F1 score set to 0")
 
-if not new_f1 >= float(old_f1): 
+# I disabled check for model drift so the script runs every time
+if 0: #not new_f1 >= float(old_f1): 
     logging.info("Step 2: Model is not drifting => exit()")
     # Once there is no model drift, we can complete the script here
     exit()
