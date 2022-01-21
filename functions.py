@@ -9,9 +9,11 @@ import json
 import random
 import subprocess
 import psycopg2
-import os
+#import os
 
-DATABASE_URL = os.environ['DATABASE_URL_RISK_ASSESS']
+#DATABASE_URL = os.environ['DATABASE_URL_RISK_ASSESS']
+DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+
 
 with open('config.json', 'r') as f:
     config = json.load(f)

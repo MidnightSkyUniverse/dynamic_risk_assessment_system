@@ -5,7 +5,6 @@ import subprocess
 DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
 
 
-
 def create_tables():
     """ create tables in the PostgreSQL database"""
     commands = [
@@ -56,7 +55,7 @@ def create_tables():
         )
         """,
 ]
-    
+ 
     conn = None
     try:
         # connect to the PostgreSQL server

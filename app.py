@@ -6,26 +6,8 @@ from flask import Flask, session, jsonify, request
 import json
 import os
 import subprocess
-######################Set up variables for use in our script
-app = Flask(__name__)
-#app.secret_key = config['SECRET_KEY']
 
-with open('config.json','r') as f:
-    config = json.load(f) 
-
-dataset_csv_path = os.path.join(config['output_folder_path']) 
-test_data_path = config['test_data_path']
-output_model_path = config['output_model_path']
-output_model = config['output_model']
-apireturns = config['apireturns']
-
-# Save the link to Heroku database, the link can change between session
 DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
-subprocess.run(['export','DATABASE_URL_RISK_ASSESS="',DATABASE_URL,'"'])
-
-#postgreSQL = config['postgreSQL']
-#with open(config['postgreSQL'],"w") as f:
-#    f.write('{ "DATABASE_URL": "' + DATABASE_URL + '" }')
 
 # Those can be imported only once we have saved DB URL
 import diagnostics
@@ -33,9 +15,20 @@ import scoring
 from functions import db_select
 
 
+######################Set up variables for use in our script
+app = Flask(__name__)
+#app.secret_key = config['SECRET_KEY']
+
+with open('config.json','r') as f:
+    config = json.load(f) 
+dataset_csv_path = os.path.join(config['output_folder_path']) 
+test_data_path = config['test_data_path']
+output_model_path = config['output_model_path']
+output_model = config['output_model']
+apireturns = config['apireturns']
+
 prediction_model = None
 hex_production = db_select("select hex from f1 where is_production=True")[0][0]
-
 
 
 #######################Prediction Endpoint
