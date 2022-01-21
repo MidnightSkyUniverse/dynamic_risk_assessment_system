@@ -112,8 +112,17 @@ before the code is commited
 Project Link: https://github.com/MidnightSkyUniverse/dynamic_risk_assessment_system
 API: https://risk-assess-sys.herokuapp.com/
 
+
 ## For Udacity Team
 * As advised I save the data to a database. Since I wanted to run the project on Heroku,
 I decided on postgreSQL database which is free on Heroku.
+
+* I created a script to generate some random data so I can rerun the project
+
+* API can be tested two ways
+	* https://risk-assess-sys.herokuapp.com/ shows images stored during `fullprocess.py` execusion
+	* https://risk-assess-sys.herokuapp.com/apireturns saves in `models/apireturns.txt` with
+what was requested as part of the project. The list of outdated packes is emtpy assuming
+the list of packages is short
 
 

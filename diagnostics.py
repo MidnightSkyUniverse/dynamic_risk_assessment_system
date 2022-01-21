@@ -119,7 +119,6 @@ def outdated_packages_list():
             if x[0] == y[0]:
                 results.append(f"{y[0]} - {y[1]} - {y[2]}")
     
-    print(results)
     return results
 
 #if __name__ == '__main__':

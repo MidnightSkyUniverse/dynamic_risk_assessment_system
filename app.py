@@ -37,11 +37,9 @@ prediction_model = None
 hex_production = db_select("select hex from f1 where is_production=True")[0][0]
 
 # ***************** Prediction Endpoint ************************
-@app.route('/report',methods=['GET','OPTIONS'])
+@app.route('/',methods=['GET','OPTIONS'])
 def hello():
    data = {}
-   # Add F1 score
-   data['f1_score'] = db_select("select f1_score from f1 where is_production=True")[0][0]  
     # Add confusion matrix
    data['fig1'] = 'f1.png' 
    data['fig2'] = 'confusionmatrix.png' 

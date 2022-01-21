@@ -2,14 +2,10 @@ import requests
 import json 
 from functions import db_select 
 
-URL = "http://127.0.0.1:8000"
-#URL = "https://risk-assess-sys.herokuapp.com/"
+#URL = "http://127.0.0.1:8000"
+URL = "https://risk-assess-sys.herokuapp.com/"
 
 
-r2 = requests.get(URL+'/report').json()
-print(r2)
-
-"""
 header = {"Content-Type" : "application/json"}
 data = {'file_name':'testdata/testdata.csv'}
 r1 = requests.post(URL+'/prediction', headers=header, data = json.dumps(data)).json()
@@ -52,5 +48,4 @@ with open(r5,"w") as f:
     f.write("List of outdated packages: package name - installed version - newest available version\n")
     for row in r4['outdated_packages']:
         f.write(f"{row}")
-"""
 
