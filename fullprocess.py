@@ -14,7 +14,7 @@ import timeit
 sys.path.append(os.getcwd())
 
 # Save the link to Heroku database, the link can change between session
-DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+DATABASE_URL = subprocess.check_output(['heroku', 'config:get', 'DATABASE_URL', '-a', 'risk-assess-sys']).decode('utf8').strip()
 
 # Import of script will take place once database link is defined
 import ingestion

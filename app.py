@@ -7,7 +7,11 @@ import json
 import os
 import subprocess
 
-DATABASE_URL = subprocess.check_output(['heroku', 'config:get', 'DATABASE_URL', '-a', 'risk-assess-sys']).decode('utf8').strip()
+DATABASE_URL = os.environ['DATABASE_URL']
+print (DATABASE_URL)
+print(subprocess.check_output(['whereis','heroku']))
+#DATABASE_URL = subprocess.check_output(['heroku', 'config:get', 'DATABASE_URL', '-a', 'risk-assess-sys']).decode('utf8').strip()
+
 
 # Those can be imported only once we have saved DB URL
 import diagnostics
@@ -30,7 +34,10 @@ apireturns = config['apireturns']
 prediction_model = None
 hex_production = db_select("select hex from f1 where is_production=True")[0][0]
 
-
+# ***************** Prediction Endpoint ************************
+@app.route('/',methods=['GET','OPTIONS'])
+def root():
+    pass
 # ***************** Prediction Endpoint ************************
 @app.route("/prediction", methods=['POST','OPTIONS'])
 def predict():        

@@ -22,7 +22,7 @@ numeric_cols = config['numeric_cols']
 
 def pdf_generate(text):
     """
-    Generate report including information about performance of the model
+    Generate report with charts and stats
     """
     c = canvas.Canvas(output_model_path + "report.pdf")
     c.drawString(100,750,text)
