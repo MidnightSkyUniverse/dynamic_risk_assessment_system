@@ -5,10 +5,7 @@
 from flask import Flask, session, jsonify, request
 import json
 import os
-import diagnostics
-import scoring 
-from functions import db_select
-
+import subprocess
 ######################Set up variables for use in our script
 app = Flask(__name__)
 #app.secret_key = config['SECRET_KEY']
@@ -22,8 +19,22 @@ output_model_path = config['output_model_path']
 output_model = config['output_model']
 apireturns = config['apireturns']
 
+# Save the link to Heroku database, the link can change between session
+DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+postgreSQL = config['postgreSQL']
+with open(config['postgreSQL'],"w") as f:
+    f.write('{ "DATABASE_URL": "' + DATABASE_URL + '" }')
+
+# Those can be imported only once we have saved DB URL
+import diagnostics
+import scoring
+from functions import db_select
+
+
 prediction_model = None
 hex_production = db_select("select hex from f1 where is_production=True")[0][0]
+
+
 
 #######################Prediction Endpoint
 @app.route("/prediction", methods=['POST','OPTIONS'])
