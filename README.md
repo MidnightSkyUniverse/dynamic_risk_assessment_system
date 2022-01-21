@@ -103,14 +103,17 @@ There is a script called `execute_fullprocess.sh` which can be configured as cro
 and execute fullprocess.py in regular intervals.
 
 
-### Model metrics
-
-### Model tests
-
 ### GitHub workflow config
+There is GitHUb workflow configured to run on GitHub and and pre-commit script
+that is executed locally and requires the scripts to pass flake8 command check
+before the code is commited
 
 ### Contact
 Project Link: https://github.com/MidnightSkyUniverse/dynamic_risk_assessment_system
+API: https://risk-assess-sys.herokuapp.com/
 
 ## For Udacity Team
+* As advised I save the data to a database. Since I wanted to run the project on Heroku,
+I decided on postgreSQL database which is free on Heroku.
+
 

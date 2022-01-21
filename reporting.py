@@ -18,6 +18,7 @@ test_data_path = os.path.join(config['test_data_path'])
 test_file = config['test_file']
 output_model_path = config['output_model_path']
 numeric_cols = config['numeric_cols']
+static = config['static']
 
 
 
@@ -43,7 +44,7 @@ def cf_matrix(file_name):
     labels = np.asarray(labels).reshape(2,2)
 
     sns.heatmap(cf_matrix, annot=labels, fmt="", cmap='Reds')
-    plt.savefig(output_model_path + 'confusionmatrix.png')
+    plt.savefig(static + 'confusionmatrix.png')
 
 
 def draw_f1():    
@@ -53,7 +54,7 @@ def draw_f1():
     plt.figure(figsize=(10,6))
     plt.title("F1 scores")
     plt.plot(f1list)
-    plt.savefig(output_model_path +'f1.png')
+    plt.savefig(static +'f1.png')
 
 
 def draw_stats_on_features():
@@ -72,7 +73,7 @@ def draw_stats_on_features():
         plt.plot(median_)
         plt.plot(std_)
         plt.legend(['mean','median','std'])
-        plt.savefig(output_model_path+col+'.png')
+        plt.savefig(static +'.png')
 
 
 def draw_timing():
@@ -87,5 +88,5 @@ def draw_timing():
     plt.plot(timing1)
     plt.plot(timing2)
     plt.legend(['ingestion script','training script' ])
-    plt.savefig(output_model_path+'timing.png')
+    plt.savefig(static + 'timing.png')
 

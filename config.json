@@ -1,6 +1,7 @@
 { 
 	"input_folder_path": "sourcedata/", 
 	"output_folder_path": "ingesteddata/", 
+	"static": "static/",
 	"test_data_path": "testdata/", 
 	"test_file": "testdata.csv",
 	"output_model_path": "models/", 
@@ -8,7 +9,6 @@
 	"prod_deployment_path": "production_deployment/", 
 	"output_file": "finaldata.csv",
 	"apireturns": "apireturns.txt",
-	"postgreSQL": "postgreSQL.json",
 	"label": "exited",
 	"numeric_cols": ["lastmonth_activity", "lastyear_activity", "number_of_employees"]
 }
