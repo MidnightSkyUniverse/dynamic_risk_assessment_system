@@ -119,6 +119,7 @@ def outdated_packages_list():
             if x[0] == y[0]:
                 results.append(f"{y[0]} - {y[1]} - {y[2]}")
     
+    print(results)
     return results
 
 #if __name__ == '__main__':
@@ -126,7 +127,7 @@ def outdated_packages_list():
 #    dataframe_summary('istest')
 #    missing_data('fd0e91')
 #    execution_time()
-#    outdated_packages_list()
+    #print(outdated_packages_list())
 
 
 

@@ -1,7 +1,6 @@
 import requests
 import json 
 from functions import db_select 
-from reporting import pdf_generate
 
 #URL = "http://127.0.0.1:8000"
 URL = "https://risk-assess-sys.herokuapp.com/"

@@ -2,7 +2,7 @@
     Author: Ali Binkowska
     Date: Jan 2022
 """
-from flask import Flask, session, jsonify, request
+from flask import Flask, request, render_template
 import json
 import os
 import subprocess
@@ -39,7 +39,8 @@ hex_production = db_select("select hex from f1 where is_production=True")[0][0]
 # ***************** Prediction Endpoint ************************
 @app.route('/',methods=['GET','OPTIONS'])
 def root():
-    pass
+   render_template('index.html',data="Hey there!") 
+
 # ***************** Prediction Endpoint ************************
 @app.route("/prediction", methods=['POST','OPTIONS'])
 def predict():        

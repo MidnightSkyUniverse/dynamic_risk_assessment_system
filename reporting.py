@@ -50,7 +50,7 @@ def draw_f1():
     f1_scores = db_select("SELECT f1_score from f1;")
     f1list = [f[0] for f in f1_scores]
 
-    plt.figure(figsize=(12,6))
+    plt.figure(figsize=(10,6))
     plt.title("F1 scores")
     plt.plot(f1list)
     plt.savefig(output_model_path +'f1.png')
@@ -66,7 +66,7 @@ def draw_stats_on_features():
         median_ = [f[0] for f in median]
         std_ = [f[0] for f in std]
 
-        plt.figure(figsize=(12,6))
+        plt.figure(figsize=(10,6))
         plt.title(f"Column: {col}")
         plt.plot(mean_)
         plt.plot(median_)
@@ -82,7 +82,7 @@ def draw_timing():
     training = db_select(f"SELECT timing from script_timing where file='training.py';")
     timing2 = [f[0] for f in training]
 
-    plt.figure(figsize=(12,6))
+    plt.figure(figsize=(10,6))
     plt.title(f"Timing")
     plt.plot(timing1)
     plt.plot(timing2)
