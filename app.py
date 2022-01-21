@@ -7,7 +7,7 @@ import json
 import os
 import subprocess
 
-DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+DATABASE_URL = subprocess.check_output(['heroku', 'config:get', 'DATABASE_URL', '-a', 'risk-assess-sys']).decode('utf8').strip()
 
 # Those can be imported only once we have saved DB URL
 import diagnostics
@@ -31,7 +31,7 @@ prediction_model = None
 hex_production = db_select("select hex from f1 where is_production=True")[0][0]
 
 
-#######################Prediction Endpoint
+# ***************** Prediction Endpoint ************************
 @app.route("/prediction", methods=['POST','OPTIONS'])
 def predict():        
     #file_name = json.loads(request.data)
@@ -42,24 +42,20 @@ def predict():
     return  {"data": predictions.tolist()}
 
 
-#######################Scoring Endpoint
+# ***************** Scoring Endpoint ************************
 @app.route("/scoring", methods=['GET','OPTIONS'])
 def stats1():        
-    #request_data = request.get_json()
-    #file_name = request_data['file_name']
-    #response = scoring.score_model(file_name,'istest') # hex replaced by string meaning it's test
     f1_score = db_select("select f1_score from f1 where is_production=True")[0][0]
     return {"data": f1_score}
 
-#######################Summary Statistics Endpoint
+# ***************** Summary on the datasets Endpoint ************************
 @app.route("/summarystats", methods=['GET','OPTIONS'])
 def stats2():        
-    #check means, medians, and modes for each column
     command = f"select feature, mean,median,std from feature_stats where hex = '{hex_production}'"
     data = db_select(command)
     return {"data": data}
 
-#######################Diagnostics Endpoint
+# ***************** Diagnostics Endpoint ************************
 @app.route("/diagnostics", methods=['GET','OPTIONS'])
 def stats3():        
     command1 = f"select feature, percentage from missing_data where hex = '{hex_production}'"
@@ -76,6 +72,7 @@ def stats3():
 
     return data
 
+# ***************** Endpoint returning name of txt file to save output  ************************
 @app.route("/apireturns",methods=['GET'])
 def name():
     return output_model_path + apireturns
