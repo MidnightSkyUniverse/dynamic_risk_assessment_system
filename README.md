@@ -9,8 +9,6 @@ is saved to the database.
 This project us par of Udacity nanodegree program.
 
 
-![model experiment with metrics](/screenshots/dvc_exp_show.png)
-
 ### Built With
 Technologies used in the project
 * [GitHub](github.com)
