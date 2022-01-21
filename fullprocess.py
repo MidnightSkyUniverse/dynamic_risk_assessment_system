@@ -13,28 +13,9 @@ import ast
 import timeit
 sys.path.append(os.getcwd())
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
-logger = logging.getLogger()
-
-
-############# Load config.json and get input and output paths
-with open('config.json','r') as f:
-    config = json.load(f)
-
-input_folder_path = config['input_folder_path']
-output_folder_path = config['output_folder_path']
-output_file = config['output_file']
-prod_deployment_path = config['prod_deployment_path']
-# test data
-test_data_path = os.path.join(config['test_data_path'])
-test_file = config['test_file']
-# This value will be used to recognize the data inserted in one session
-
 # Save the link to Heroku database, the link can change between session
 DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
-postgreSQL = config['postgreSQL']
-with open(config['postgreSQL'],"w") as f:
-    f.write('{ "DATABASE_URL": "' + DATABASE_URL + '" }')
+subprocess.run(['export','DATABASE_URL_RISK_ASSESS="',DATABASE_URL,'"'])
 
 # Import of script will take place once database link is defined
 import ingestion
@@ -47,7 +28,27 @@ import functions
 from functions import random_hex, db_select, db_insert
 from reporting import  draw_f1,  draw_timing, draw_stats_on_features
 
+
+# ************************* Step 0 ************************* 
+# Set logging 
+# Import variables from config.json
+# Set hex_value which will be unique for each run 
+# ********************************************************** 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+logger = logging.getLogger()
+
+with open('config.json','r') as f:
+    config = json.load(f)
+
+input_folder_path = config['input_folder_path']
+output_folder_path = config['output_folder_path']
+output_file = config['output_file']
+prod_deployment_path = config['prod_deployment_path']
+test_data_path = os.path.join(config['test_data_path'])
+test_file = config['test_file']
+
 hex_value = random_hex()
+
 
 # ************************* Step 1 ************************* 
 # check existance of new data. If positive, combine all 

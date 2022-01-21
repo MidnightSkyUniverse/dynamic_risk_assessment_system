@@ -21,9 +21,11 @@ apireturns = config['apireturns']
 
 # Save the link to Heroku database, the link can change between session
 DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
-postgreSQL = config['postgreSQL']
-with open(config['postgreSQL'],"w") as f:
-    f.write('{ "DATABASE_URL": "' + DATABASE_URL + '" }')
+subprocess.run(['export','DATABASE_URL_RISK_ASSESS="',DATABASE_URL,'"'])
+
+#postgreSQL = config['postgreSQL']
+#with open(config['postgreSQL'],"w") as f:
+#    f.write('{ "DATABASE_URL": "' + DATABASE_URL + '" }')
 
 # Those can be imported only once we have saved DB URL
 import diagnostics

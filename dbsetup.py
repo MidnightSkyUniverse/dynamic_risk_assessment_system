@@ -1,13 +1,9 @@
 import psycopg2
-import json
-import os
-
-with open('config.json', 'r') as f:
-    config = json.load(f)
+import subprocess
 
 
-#DATABASE_URL = os.environ['DATABASE_URL']
-DATABASE_URL = config['DATABASE_URL']
+DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+
 
 
 def create_tables():
@@ -64,14 +60,6 @@ def create_tables():
     conn = None
     try:
         # connect to the PostgreSQL server
-        """
-        conn = psycopg2.connect(user=config.USER,
-                                  password=config.PASSWORD,
-                                  host="127.0.0.1",
-                                  port="5432",
-                                  database=config.DATABASE_NAME
-        )
-        """
         conn = psycopg2.connect(DATABASE_URL)
         cur = conn.cursor()
         # create table one by one

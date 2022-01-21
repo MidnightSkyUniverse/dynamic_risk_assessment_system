@@ -1,10 +1,9 @@
 import psycopg2
-import json
+import subprocess
 
-with open('config.json', 'r') as f:
-    config = json.load(f)
 
-DATABASE_URL = config['DATABASE_URL']
+DATABASE_URL = subprocess.check_output(["heroku", "config:get", "DATABASE_URL", "-a", "risk-assess-sys"]).decode('utf8').strip()
+
 
 commands = [
 """drop table f1;""",
