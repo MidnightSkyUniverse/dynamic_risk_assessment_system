@@ -117,7 +117,9 @@ API: https://risk-assess-sys.herokuapp.com/
 * As advised I save the data to a database. Since I wanted to run the project on Heroku,
 I decided on postgreSQL database which is free on Heroku.
 
-* I created a script to generate some random data so I can rerun the project
+* I created a script to generate some random data so I can rerun the project. 
+The data is random so it makes the model not really smarter with each batch of the data.
+So I disabele conditions in `fullprocess.py` so I can re-run full script with each execution
 
 * API can be tested two ways
 	* https://risk-assess-sys.herokuapp.com/ shows images stored during `fullprocess.py` execusion
@@ -125,4 +127,51 @@ I decided on postgreSQL database which is free on Heroku.
 what was requested as part of the project. The list of outdated packes is emtpy assuming
 the list of packages is short
 
+### Files and folder
+Others
+---------
+Charts.ipynb - some charts in jupyter notebook
+generate_fake_datasets.py - script used to generate fake data
+conda_local.env - local conda env
+environment.yml - GitHub conda env
+README.md
+
+Heroku
+--------
+Procfile
+requirements.txt
+runtime.txt
+
+Flask
+------
+static/
+templates/
+
+
+Scripts to create and drop tables in PostgreSQL database on Heroku
+---------------------
+dbsetup.py
+drop_tables.py
+
+
+Udacity required:
+----------------
+apicalls.py
+app.py
+config.json
+cronjob.txt
+deployment.py
+diagnostics.py
+execute_fullprocess.sh
+fullprocess.py
+functions.py
+ingesteddata
+ingestion.py
+models
+production_deployment
+reporting.py
+scoring.py
+sourcedata
+testdata
+training.py
 
