@@ -7,10 +7,12 @@ import json
 import os
 import subprocess
 
-DATABASE_URL = os.environ['DATABASE_URL']
-print (DATABASE_URL)
-print(subprocess.check_output(['whereis','heroku']))
-#DATABASE_URL = subprocess.check_output(['heroku', 'config:get', 'DATABASE_URL', '-a', 'risk-assess-sys']).decode('utf8').strip()
+
+# Save the link to Heroku database, the link can change between session
+try:
+    DATABASE_URL = os.environ['DATABASE_URL']
+except:
+    DATABASE_URL = subprocess.check_output(['heroku', 'config:get', 'DATABASE_URL', '-a', 'risk-assess-sys']).decode('utf8').strip()
 
 
 # Those can be imported only once we have saved DB URL

@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
+import time
 from diagnostics import model_predictions
 from functions import process_data,db_select
-from reportlab.pdfgen import canvas
 import matplotlib.pyplot as plt
 
 ###############Load config.json and get path variables
@@ -19,14 +19,6 @@ test_file = config['test_file']
 output_model_path = config['output_model_path']
 numeric_cols = config['numeric_cols']
 
-
-def pdf_generate(text):
-    """
-    Generate report with charts and stats
-    """
-    c = canvas.Canvas(output_model_path + "report.pdf")
-    c.drawString(100,750,text)
-    c.save()
 
 
 def cf_matrix(file_name):
@@ -97,5 +89,3 @@ def draw_timing():
     plt.legend(['ingestion script','training script' ])
     plt.savefig(output_model_path+'timing.png')
 
-#if __name__ == '__main__':
-#    score_model()
