@@ -6,6 +6,7 @@
 import pandas as pd
 import os
 import json
+from sklearn.model_selection import train_test_split
 from functions import db_select, db_insert
 
 #import logging
@@ -20,7 +21,8 @@ with open('config.json','r') as f:
 input_folder_path = config['input_folder_path']
 output_folder_path = config['output_folder_path']
 output_file = config['output_file']
-
+test_data_path = config['test_data_path']
+test_file = config['test_file']
 
 #############Function for data ingestion
 def merge_multiple_dataframe(hex_value):
@@ -37,7 +39,9 @@ def merge_multiple_dataframe(hex_value):
     # Save combined 
     #logging.info(f"Save combined pandas dataframe to {output_folder_path} folder")
     result = combined.drop_duplicates()
-    result.to_csv(output_folder_path + output_file, index=False)
+    train, test = train_test_split(result, test_size=0.2, random_state=42, shuffle=True)
+    train.to_csv(output_folder_path + output_file, index=False)
+    test.to_csv(test_data_path + test_file, index=False)
 
     # Check which files are mentioned in the db
     files = db_select("SELECT file from ingested_files;")

@@ -24,22 +24,22 @@ for col in df.columns.values:
 corporation = [get_random_string() for x in range(0,1000)]
 exited = [random.randint(0,1) for x in range(0,1000)]
 
-r1 = [random.randint(0,100000) for x in range(10,0) ]
+r1 = [random.randint(0,100000) for x in range(100,0) ]
 r2 = [random.randint(0,5000) for x in range(1,290) ]
-r3 = [random.randint(0,100) for x in range(1,700) ]
+r3 = [random.randint(0,100) for x in range(1,600) ]
 #print (f"{mean(r1+r2+r3)} - {median(r1+r2+r3)} - {stdev(r1+r2+r3)}")
 lastmonth_activity = r1+r2+r3
 random.shuffle(lastmonth_activity)
 
-r1 = [random.randint(0,9000) for x in range(1,180) ]
+r1 = [random.randint(0,9000) for x in range(1,80) ]
 r2 = [random.randint(0,600) for x in range(1,650) ]
-r3 = [random.randint(0,150) for x in range(1,220) ]
+r3 = [random.randint(0,150) for x in range(1,320) ]
 #print (f"{mean(r1+r2+r3)} - {median(r1+r2+r3)} - {stdev(r1+r2+r3)}")
 lastyear_activity = r1+r2+r3
 random.shuffle(lastyear_activity)
 
 r1 = [random.randint(0,2000) for x in range(1,20) ]
-r2 = [random.randint(0,650) for x in range(1,300) ]
+r2 = [random.randint(0,450) for x in range(1,300) ]
 r3 = [random.randint(0,25) for x in range(1,680) ]
 #print (f"{mean(r1+r2+r3)} - {median(r1+r2+r3)} - {stdev(r1+r2+r3)}")
 number_of_employees = r1+r2+r3
@@ -51,4 +51,4 @@ for x,y,z,v,e in zip(corporation, lastmonth_activity, lastyear_activity, number_
 
 df2 = pd.DataFrame(data)
 #print(df2)
-df2.to_csv("sourcedata/dataset11.csv",index=False)
+df2.to_csv("sourcedata/dataset12.csv",index=False)
