@@ -127,51 +127,47 @@ So I disabele conditions in `fullprocess.py` so I can re-run full script with ea
 what was requested as part of the project. The list of outdated packes is emtpy assuming
 the list of packages is short
 
+
 ### Files and folder
-Others
----------
-Charts.ipynb - some charts in jupyter notebook
-generate_fake_datasets.py - script used to generate fake data
-conda_local.env - local conda env
-environment.yml - GitHub conda env
-README.md
 
-Heroku
---------
-Procfile
-requirements.txt
-runtime.txt
+##### Others
+* `Charts.ipynb` - some charts in jupyter notebook
+* `generate_fake_datasets.py` - script used to generate fake data
+* `conda_local.env` - local conda env
+* `environment.yml` - GitHub conda env
+* `README.md`
 
-Flask
-------
-static/
-templates/
+##### Heroku
+* `Procfile`
+* `requirements.txt`
+* `runtime.txt`
+
+##### Flask
+* `static/`
+* `templates/`
 
 
-Scripts to create and drop tables in PostgreSQL database on Heroku
----------------------
-dbsetup.py
-drop_tables.py
+##### Scripts to create and drop tables in PostgreSQL database on Heroku
+* `dbsetup.py`
+* `drop_tables.py`
 
 
-Udacity required:
-----------------
-apicalls.py
-app.py
-config.json
-cronjob.txt
-deployment.py
-diagnostics.py
-execute_fullprocess.sh
-fullprocess.py
-functions.py
-ingesteddata
-ingestion.py
-models
-production_deployment
-reporting.py
-scoring.py
-sourcedata
-testdata
-training.py
-
+##### Udacity required:
+* `apicalls.py`
+* `app.py`
+* `config.json`
+* `cronjob.txt`
+* `deployment.py`
+* `diagnostics.py`
+* `execute_fullprocess.sh`
+* `fullprocess.py`
+* `functions.py`
+* `ingesteddata/`
+* `ingestion.py`
+* `models/`
+* `production_deployment`
+* `reporting.py`
+* `scoring.py`
+* `sourcedata/`
+* `testdata/`
+* `training.py`
