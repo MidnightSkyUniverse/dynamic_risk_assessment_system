@@ -16,7 +16,6 @@ Technologies used in the project
 * [Heroku](https://heroku.com)
 * [PostreSQL on Heroku](https://www.postgresql.org/)
 * [crontab](https://man7.org/linux/man-pages/man5/crontab.5.html)
-* [reportlab for PDF generation](https://www.reportlab.com/docs/reportlab-userguide.pdf) 
 
 
 ### Getting Started
@@ -98,7 +97,7 @@ for outdated packages `pip list --outdated`
 #### Continuous diagnostics
 
 There is a script called `execute_fullprocess.sh` which can be configured as cron job
-and execute fullprocess.py in regular intervals.
+and execute `fullprocess.py` in regular intervals.
 
 
 ### GitHub workflow config
@@ -107,8 +106,8 @@ that is executed locally and requires the scripts to pass flake8 command check
 before the code is commited
 
 ### Contact
-Project Link: https://github.com/MidnightSkyUniverse/dynamic_risk_assessment_system
-API: https://risk-assess-sys.herokuapp.com/
+- Project Link: https://github.com/MidnightSkyUniverse/dynamic_risk_assessment_system
+- API: https://risk-assess-sys.herokuapp.com/
 
 
 ## For Udacity Team
