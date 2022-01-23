@@ -1,5 +1,6 @@
 ![name-shield]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![license-badge](https://img.shields.io/badge/license-MIT-yellow?style=for-the-badge)](./LICENSE)
 
 ## Dynamic Risk Assessment System
 With an assumption that we have a Machine Learning model in production, the project
@@ -163,3 +164,5 @@ before the code is commited
 [name-shield]: https://img.shields.io/badge/Author-Ali%20Binkowska-blueviolet?style=for-the-badge
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/alibinkowska
+[licence-badge]: https://img.shields.io/github/license/{midnightskyuniverse}/{dynamic_risk_assessment_system}.svg?style=for-the-badge
+
