@@ -1,3 +1,6 @@
+![name-shield]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
 ## Dynamic Risk Assessment System
 With an assumption that we have a Machine Learning model in production, the project
 aims to check in regular intervals (per crontab configuration) for new datasets
@@ -110,21 +113,6 @@ before the code is commited
 - API: https://risk-assess-sys.herokuapp.com/
 
 
-## For Udacity Team
-* As advised I save the data to a database. Since I wanted to run the project on Heroku,
-I decided on postgreSQL database which is free on Heroku.
-
-* I created a script to generate some random data so I can rerun the project. 
-The data is random so it makes the model not really smarter with each batch of the data.
-So I disabele conditions in `fullprocess.py` so I can re-run full script with each execution
-
-* API can be tested two ways
-	* https://risk-assess-sys.herokuapp.com/ shows images stored during `fullprocess.py` execusion
-	* https://risk-assess-sys.herokuapp.com/apireturns saves in `models/apireturns.txt` with
-what was requested as part of the project. The list of outdated packes is emtpy assuming
-the list of packages is short
-
-
 ### Files and folder
 
 ##### Others
@@ -168,3 +156,10 @@ the list of packages is short
 * `sourcedata/`
 * `testdata/`
 * `training.py`
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[name-shield]: https://img.shields.io/badge/Author-Ali%20Binkowska-blueviolet?style=for-the-badge
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/alibinkowska
